@@ -268,8 +268,6 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @param integer $paidContent Is this paid content? {0,1}
      * @param integer $revisionId  The document id we are revising
      *
-     * @todo Should we verify the file exists?
-     *
      * @link http://www.scribd.com/publisher/api?method_name=docs.upload
      * @throws Services_Scribd_Exception
      * @return SimpleXMLElement
@@ -280,6 +278,12 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         if (!in_array($docType, $this->_validDocTypes)) {
             throw new Services_Scribd_Exception(
                 'Invalid document type requested: ' . $docType
+            );
+        }
+
+        if (!file_exists($filepath)) {
+            throw new Services_Scribd_Exception(
+                'The selected file was not found'
             );
         }
 
