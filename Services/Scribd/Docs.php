@@ -186,13 +186,22 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     /**
      * getList
      *
-     * Revtrieve a list of documents owned by a  user.
+     * Revtrieve a list of documents owned by a user.
+     *
+     * @param integer $limit         Max amount of results to return
+     * @param integer $offset        Offset into the list of documents
+     * @param boolean $useAPIAccount Show documents associated with the API
+     * account, rather the Scribd user account
      *
      * @link http://www.scribd.com/publisher/api?method_name=docs.getList
      * @return array
      */
-    public function getList()
+    public function getList($limit = 10, $offset = 0, $useAPIAccount = false)
     {
+        $this->arguments['limit']           = $limit;
+        $this->arguments['offset']          = $offset;
+        $this->arguments['use_api_account'] = $useAPIAccount;
+
         $response = $this->sendRequest('docs.getList');
 
         $response = (array) $response->resultset;
