@@ -184,6 +184,10 @@ class Services_Scribd_Common extends Services_Scribd
             'api_key' => Services_Scribd::$apiKey
         );
 
+        if (Services_Scribd::$apiSessionKey !== null) {
+            $this->arguments['session_key'] = Services_Scribd::$apiSessionKey;
+        }
+
         // Get rid of any nulls
         $this->arguments = array_diff($this->arguments, array(null));
 

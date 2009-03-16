@@ -19,6 +19,8 @@
  * @link      http://pear.php.net/package/Services_Scribd
  */
 
+require_once 'Services/Scribd/Exception.php';
+
 /**
  * The base class for the Scribd API interface.  Takes care of defining common
  * variables and loading the indidividual drivers.
@@ -66,7 +68,7 @@ class Services_Scribd
      *
      * @var string
      */
-     static public $apiSecret = null;
+    static public $apiSecret = null;
 
     /**
      * Timeout to use when making the request
@@ -78,11 +80,9 @@ class Services_Scribd
     /**
      * The API session key
      *
-     * @todo Figure out how to use this
-     *
      * @var string
      */
-    public $apiSessionKey = null;
+    static public $apiSessionKey = null;
 
     /**
      * An array that contains instances of the individual drivers
@@ -108,13 +108,15 @@ class Services_Scribd
      *
      * Construct and set the api key.
      *
-     * @param string $apiKey The API key
+     * @param string $apiKey    The API key
+     * @param string $apiSecret The super secret API passphrase
      *
      * @return void
      */
-    public function __construct($apiKey)
+    public function __construct($apiKey, $apiSecret = null)
     {
-        self::$apiKey = $apiKey;
+        self::$apiKey    = $apiKey;
+        self::$apiSecret = $apiSecret;
     }
 
     /**
@@ -161,7 +163,9 @@ class Services_Scribd
         include_once $file;
 
         if (!class_exists($class)) {
-            throw new Services_Scribd_Exception('not found');
+            throw new Services_Scribd_Exception(
+                'Unable to load driver: ' . $driver
+            );
         }
 
         return new $class();
