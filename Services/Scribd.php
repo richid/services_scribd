@@ -40,21 +40,21 @@ class Services_Scribd
      *
      * @var string
      */
-    CONST API = 'http://api.scribd.com/api';
+    const API = 'http://api.scribd.com/api';
 
     /**
      * HTTP GET method
      *
      * @var string
      */
-    CONST HTTP_METHOD_GET = 'GET';
+    const HTTP_METHOD_GET = 'GET';
 
     /**
      * HTTP POST method
      *
      * @var string
      */
-    CONST HTTP_METHOD_POST = 'POST';
+    const HTTP_METHOD_POST = 'POST';
 
     /**
      * API key
@@ -69,6 +69,14 @@ class Services_Scribd
      * @var string
      */
     static public $apiSecret = null;
+
+    /**
+     * Third party user id to associate with the requests
+     *
+     * @link http://www.scribd.com/publisher/api?method_name=Authentication
+     * @var string
+     */
+    static public $myUserId = null;
 
     /**
      * Timeout to use when making the request
@@ -98,7 +106,6 @@ class Services_Scribd
      */
     private $_validDrivers = array(
         'docs',
-        'ext',
         'security',
         'user'
     );
