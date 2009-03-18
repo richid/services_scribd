@@ -132,7 +132,7 @@ class Services_Scribd_Common extends Services_Scribd
         $response = curl_exec($curl);
 
         if (curl_errno($curl)) {
-            throw new Services_Scribd_Exception();
+            throw new Services_Scribd_Exception(curl_error($curl));
         }
 
         curl_close($curl);
@@ -186,6 +186,10 @@ class Services_Scribd_Common extends Services_Scribd
 
         if (Services_Scribd::$apiSessionKey !== null) {
             $this->arguments['session_key'] = Services_Scribd::$apiSessionKey;
+        }
+
+        if (Services_Scribd::$myUserId !== null) {
+            $this->arguments['my_user_id'] = Services_Scribd::$myUserId;
         }
 
         // Get rid of any nulls
