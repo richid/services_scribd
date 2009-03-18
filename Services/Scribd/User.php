@@ -56,12 +56,13 @@ class Services_Scribd_User extends Services_Scribd_Common
      *
      * @param string $redirectUrl The URL to redirect to after logging in
      *
-     * @todo Contact Scribd, always receive an empty string
+     * @todo Confirmed with Scribd that this is a bug.  Reply being tracked
+     * in http://groups.google.com/group/scribd-platform-developers/browse_thread/thread/df7872bba78c4ace
      *
      * @link http://www.scribd.com/publisher/api?method_name=user.login
      * @return string
      */
-    public function getAutoSigninUrl($redirectUrl = '')
+    public function getAutoSigninUrl($redirectUrl = '/')
     {
         $this->arguments['next_url'] = $redirectUrl;
 
