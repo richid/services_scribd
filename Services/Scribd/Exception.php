@@ -19,6 +19,8 @@
  * @link      http://pear.php.net/package/Services_Scribd
  */
 
+require_once 'PEAR/Exception.php';
+
 /**
  * Generic exception thrown by Services_Scribd.
  * 
@@ -30,7 +32,7 @@
  * @version   @package_version@
  * @link      http://www.scribd.com/publisher/api
  */
-class Services_Scribd_Exception extends Exception
+class Services_Scribd_Exception extends PEAR_Exception
 {
 
 }
