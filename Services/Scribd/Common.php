@@ -30,7 +30,7 @@ require_once 'Services/Scribd/Common.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher <rich.schu@gmail.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version   0.0.1
+ * @version   Release: 0.0.1
  * @link      http://www.scribd.com/publisher/api
  */
 class Services_Scribd_Common extends Services_Scribd
@@ -98,10 +98,10 @@ class Services_Scribd_Common extends Services_Scribd
     }
 
     /**
-     * sendRequest
+     * call
      *
      * Using curl, actually send the request to the Scribd API.  Delegates to
-     * helper methods to format the arguments, response, etc.
+     * helper methods to format the arguments, send request, response, etc.
      *
      * @param string $endpoint The requested endpoint
      * @param string $method   The HTTP method to use, defaults to GET
@@ -109,21 +109,38 @@ class Services_Scribd_Common extends Services_Scribd
      * @throws Services_Scribd_Exception
      * @return mixed
      */
-    protected function sendRequest($endpoint,
-                                   $method = Services_Scribd::HTTP_METHOD_GET)
+    protected function call($endpoint,
+                            $method = Services_Scribd::HTTP_METHOD_GET)
     {
         if ($method !== Services_Scribd::HTTP_METHOD_GET
             && $method !== Services_Scribd::HTTP_METHOD_POST) {
             throw new Services_Scribd_Exception('Invalid HTTP method: ' . $method);
         }
 
-        $uri = $this->_buildRequestURI($endpoint, $method);
+        $uri      = $this->_buildRequestURI($endpoint, $method);
+        $response = $this->sendRequest($uri, $method);
 
+        $this->_reset();
+
+        return $this->_formatResponse($response);
+    }
+
+    /**
+     * sendRequest
+     *
+     * @param string $uri    The API URI to request
+     * @param string $method The HTTP method to use
+     *
+     * @throws Services_Scribd_Exception
+     * @return void
+     */
+    protected function sendRequest($uri, $method)
+    {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $uri);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, Services_Scribd::$timeout);
-        
+
         if ($method === Services_Scribd::HTTP_METHOD_POST) {
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $this->arguments);
@@ -137,9 +154,7 @@ class Services_Scribd_Common extends Services_Scribd
 
         curl_close($curl);
 
-        $this->_reset();
-        
-        return $this->_formatResponse($response);
+        return $response;
     }
 
     /**
@@ -245,13 +260,14 @@ class Services_Scribd_Common extends Services_Scribd
      */
     private function _formatResponse($response)
     {
+        libxml_use_internal_errors(true);
         $xml = simplexml_load_string($response);
         if (!$xml instanceof SimpleXmlElement) {
             throw new Services_Scribd_Exception(
                 'Could not parse XML response'
             );
         }
-        
+
         if ( (string) $xml['stat'] !== 'ok') {
             $code    = (int) $xml->error['code'];
             $message = (string) $xml->error['message'];
