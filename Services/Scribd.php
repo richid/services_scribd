@@ -30,7 +30,7 @@ require_once 'Services/Scribd/Exception.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher <rich.schu@gmail.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version   0.0.1
+ * @version   Release: 0.0.1
  * @link      http://www.scribd.com/publisher/api
  */
 class Services_Scribd

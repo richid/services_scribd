@@ -31,7 +31,7 @@ require_once 'Services/Scribd/Common.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher <rich.schu@gmail.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version   0.0.1
+ * @version   Release: 0.0.1
  * @link      http://www.scribd.com/publisher/api
  */
 class Services_Scribd_Docs extends Services_Scribd_Common
@@ -72,14 +72,14 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * changeSettings
      *
      * Change some metadata for one or many documents.  Always returns true
-     * since any problems will be reported by the sendRequest() method.
+     * since any problems will be reported by the call() method.
      *
      * @param array $docIds   Array of document ids to modify
      * @param array $settings Associative array of values to use
      *
      * @link http://www.scribd.com/publisher/api?method_name=docs.changeSettings
-     * @see Services_Scribd_Common::sendRequest()
-     * @return void
+     * @see Services_Scribd_Common::call()
+     * @return true
      */
     public function changeSettings(array $docIds, array $settings)
     {
@@ -108,8 +108,8 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments            = $settings;
         $this->arguments['doc_ids'] = $docIds;
 
-        $response = $this->sendRequest('docs.changeSettings',
-                                       Services_Scribd::HTTP_METHOD_POST);
+        $response = $this->call('docs.changeSettings',
+                                Services_Scribd::HTTP_METHOD_POST);
 
         return true;
     }
@@ -118,20 +118,19 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * delete
      *
      * Delete a document.  Always returns true since any problems will be
-     * reported by the sendRequest().
+     * reported by the call() method.
      *
      * @param integer $docId The id of the document to delete
      *
      * @link http://www.scribd.com/publisher/api?method_name=docs.delete
-     * @see Services_Scribd_Common::sendRequest()
+     * @see Services_Scribd_Common::call()
      * @return true
      */
     public function delete($docId)
     {
         $this->arguments['doc_id'] = $docId;
 
-        $this->sendRequest('docs.delete',
-                           Services_Scribd::HTTP_METHOD_POST);
+        $this->call('docs.delete', Services_Scribd::HTTP_METHOD_POST);
 
         return true;
     }
@@ -150,7 +149,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     {
         $this->arguments['doc_id'] = $docId;
 
-        $response = $this->sendRequest('docs.getConversionStatus');
+        $response = $this->call('docs.getConversionStatus');
 
         return trim((string) $response->conversion_status);
     }
@@ -178,7 +177,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments['doc_id']   = $docId;
         $this->arguments['doc_type'] = $docType;
 
-        $response = $this->sendRequest('docs.getDownloadUrl');
+        $response = $this->call('docs.getDownloadUrl');
 
         return trim((string) $response->download_link);
     }
@@ -202,8 +201,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments['offset']          = $offset;
         $this->arguments['use_api_account'] = $useAPIAccount;
 
-        $response = $this->sendRequest('docs.getList');
-
+        $response = $this->call('docs.getList');
         $response = (array) $response->resultset;
 
         return $response['result'];
@@ -223,13 +221,10 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     {
         $this->arguments['doc_id'] = $docId;
 
-        return $this->sendRequest('docs.getSettings');
+        return $this->call('docs.getSettings');
     }
 
     /**
-     * TODO: Why do we have to use result_set here?
-     * search
-     *
      * Search for the text string within the Scribd documents.
      *
      * @param string  $query  The text to search for
@@ -240,7 +235,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      *
      * @link http://www.scribd.com/publisher/api?method_name=docs.search
      * @throws Services_Scribd_Exception
-     * @return void
+     * @return array
      */
     public function search($query, $scope = 'user', $limit = 10, $offset = 1)
     {
@@ -261,9 +256,19 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments['num_results'] = $limit;
         $this->arguments['num_start']   = $offset;
 
-        $response = $this->sendRequest('docs.search');
+        $rawResponse = $this->call('docs.search');
 
-        return $response->result_set;
+        $response['results'] = array();
+
+        foreach($rawResponse->result_set[0]->attributes() as $key => $value) {
+            $response[$key] = (string) $value;
+        }
+
+        foreach($rawResponse->result_set->result as $result) {
+            array_push($response['results'], $result);
+        }
+
+        return $response;
     }
 
     /**
@@ -301,9 +306,13 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments['access']       = $access;
         $this->arguments['paid_content'] = $paidContent;
         $this->arguments['rev_id']       = $revisionId;
-    
-        return $this->sendRequest('docs.upload',
-                                  Services_Scribd::HTTP_METHOD_POST);
+
+        $response = $this->call('docs.upload',
+                                Services_Scribd::HTTP_METHOD_POST);
+
+        unset($response['stat']);
+
+        return $response;
     }
 
     /**
@@ -337,9 +346,13 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments['access']       = $access;
         $this->arguments['paid_content'] = $paidContent;
         $this->arguments['rev_id']       = $revisionId;
+
+        $response = $this->call('docs.uploadFromUrl',
+                                Services_Scribd::HTTP_METHOD_POST);
     
-        return $this->sendRequest('docs.uploadFromUrl',
-                                  Services_Scribd::HTTP_METHOD_POST);
+        unset($response['stat']);
+
+        return $response;
     }
 }
 

@@ -30,7 +30,7 @@ require_once 'Services/Scribd/Common.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher <rich.schu@gmail.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version   0.0.1
+ * @version   Release: 0.0.1
  * @link      http://www.scribd.com/publisher/api
  */
 class Services_Scribd_User extends Services_Scribd_Common
@@ -57,7 +57,7 @@ class Services_Scribd_User extends Services_Scribd_Common
      * @param string $redirectUrl The URL to redirect to after logging in
      *
      * @todo Confirmed with Scribd that this is a bug.  Reply being tracked
-     * in http://groups.google.com/group/scribd-platform-developers/browse_thread/thread/df7872bba78c4ace
+     * in {@link http://groups.google.com/group/scribd-platform-developers/browse_thread/thread/df7872bba78c4ace}
      *
      * @link http://www.scribd.com/publisher/api?method_name=user.login
      * @return string
@@ -66,7 +66,7 @@ class Services_Scribd_User extends Services_Scribd_Common
     {
         $this->arguments['next_url'] = $redirectUrl;
 
-        $response = $this->sendRequest('user.getAutoSigninUrl');
+        $response = $this->call('user.getAutoSigninUrl');
 
         return (string) $response->url;
     }
@@ -87,8 +87,12 @@ class Services_Scribd_User extends Services_Scribd_Common
         $this->arguments['username'] = $username;
         $this->arguments['password'] = $password;
 
-        return $this->sendRequest('user.login',
-                                  Services_Scribd::HTTP_METHOD_POST);
+        $response = $this->call('user.login',
+                                Services_Scribd::HTTP_METHOD_POST);
+
+        unset($response['stat']);
+
+        return $response;
     }
 
     /**
@@ -110,8 +114,11 @@ class Services_Scribd_User extends Services_Scribd_Common
         $this->arguments['email']    = $email;
         $this->arguments['name']     = $name;
 
-        return $this->sendRequest('user.signup',
-                                  Services_Scribd::HTTP_METHOD_POST);
+        $response = $this->call('user.signup', Services_Scribd::HTTP_METHOD_POST);
+
+        unset($response['stat']);
+
+        return $response;
     }
 }
 
