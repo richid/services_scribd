@@ -25,6 +25,24 @@ require_once 'Services/Scribd/Exception.php';
  * The base class for the Scribd API interface.  Takes care of defining common
  * variables and loading the indidividual drivers.
  *
+ * <code>
+ * <?php
+ * require_once 'Services/Scribd.php';
+ *
+ * $apiKey    = 'myAPIKey';
+ * $apiSecret = 'myAPISecret';
+ *
+ * $scribd = new Services_Scribd($apiKey, $apiSecret);
+ *
+ * try {
+ *     $result = $scribd->docs->search('vim');
+ *     var_dump($result);
+ * } catch (Services_Scribd_Exception $e) {
+ *     var_dump($e);
+ * }
+ * ?>
+ * </code>
+ *
  * @category  Services
  * @package   Services_Scribd
  * @author    Rich Schumacher <rich.schu@gmail.com>
