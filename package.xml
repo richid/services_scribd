@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Services_Scribd</name>
+ <channel>pear.php.net</channel>
+ <summary>Interface for Scribd&apos;s public API.</summary>
+ <description>Services_Scribd is an interface to communicate with Scribd&apos;s REST-based public API. The Scribd API gives consumers the ability to upload, convert, modify, delete, and search within documents.</description>
+ <lead>
+  <name>Rich Schumacher</name>
+  <user>richid</user>
+  <email>rich.schu@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Rich Schumacher</name>
+  <user>richid</user>
+  <email>rich.schu@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-04-28</date>
+ <time>00:37:55</time>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+ <notes>
+* Initial build for Services_Scribd.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="78a682920d15d86c595aaa58eb89985e" name="Services/Scribd.php" role="php">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="f68dd30955c2658bbb703cc9adeb4058" name="Services/Scribd/Common.php" role="php">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="a94aaff362ff36ead45d94867d9f0942" name="Services/Scribd/Docs.php" role="php">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="0331762f7779b0f516e07de2ca58afda" name="Services/Scribd/Exception.php" role="php">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="7a384a8b895dc7f2a0a640bff2755b57" name="Services/Scribd/User.php" role="php">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="115b7622c2c54c135ca6a570903c9e14" name="tests/AllTests.php" role="test">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="ec592104bf1fe69ab9c159c3023d415d" name="tests/CommonTest.php" role="test">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="7df17940b187ed4ae60c136f38dc392d" name="tests/DocsTest.php" role="test">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="9f386ba122bc4e6eaba6db429caa7923" name="tests/ScribdTest.php" role="test">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="38bb297a922399e88f39cb5b31600396" name="tests/UserTest.php" role="test">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.6.4</min>
+   </pearinstaller>
+   <extension>
+    <name>curl</name>
+   </extension>
+   <extension>
+    <name>simplexml</name>
+   </extension>
+   <extension>
+    <name>curl</name>
+   </extension>
+   <extension>
+    <name>simplexml</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-04-28</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Initial build for Services_Scribd.
+   </notes>
+  </release>
+ </changelog>
+</package>
