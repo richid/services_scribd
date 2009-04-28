@@ -15,7 +15,7 @@
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher <rich.schu@gmail.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version   0.0.1
+ * @version   Release: @package-version@
  * @link      http://pear.php.net/package/Services_Scribd
  */
 
@@ -31,7 +31,6 @@ require_once 'Services/Scribd/Common.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher <rich.schu@gmail.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version   Release: 0.0.1
  * @link      http://www.scribd.com/publisher/api
  */
 class Services_Scribd_Docs extends Services_Scribd_Common
@@ -260,11 +259,11 @@ class Services_Scribd_Docs extends Services_Scribd_Common
 
         $response['results'] = array();
 
-        foreach($rawResponse->result_set[0]->attributes() as $key => $value) {
+        foreach ($rawResponse->result_set[0]->attributes() as $key => $value) {
             $response[$key] = (string) $value;
         }
 
-        foreach($rawResponse->result_set->result as $result) {
+        foreach ($rawResponse->result_set->result as $result) {
             array_push($response['results'], $result);
         }
 
