@@ -22,7 +22,7 @@ class Services_Scribd_UserTest extends Services_Scribd_CommonTest
         $expectedResponse = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rsp stat="ok">
-  <url></url>
+  <url>http://www.scribd.com/login/auto_login/999?hash=1a1d&next_url=%2F</url>
 </rsp>
 XML;
 
@@ -30,7 +30,7 @@ XML;
         $response = $this->scribd->getAutoSigninUrl();
 
         $this->assertType('string', $response);
-        $this->assertEquals('', $response);
+        $this->assertEquals('http://www.scribd.com/login/auto_login/999?hash=1a1d&next_url=%2F', $response);
     }
 
     public function testLogin()

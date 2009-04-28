@@ -55,9 +55,6 @@ class Services_Scribd_User extends Services_Scribd_Common
      *
      * @param string $redirectUrl The URL to redirect to after logging in
      *
-     * @todo Confirmed with Scribd that this is a bug.  Reply being tracked
-     * in {@link http://groups.google.com/group/scribd-platform-developers/browse_thread/thread/df7872bba78c4ace}
-     *
      * @link http://www.scribd.com/publisher/api?method_name=user.login
      * @return string
      */
@@ -67,7 +64,7 @@ class Services_Scribd_User extends Services_Scribd_Common
 
         $response = $this->call('user.getAutoSigninUrl');
 
-        return (string) $response->url;
+        return trim((string) $response->url);
     }
 
     /**
