@@ -127,9 +127,7 @@ class Services_Scribd
     );
 
     /**
-     * __construct
-     *
-     * Construct and set the api key.
+     * Sets the API key and optional API secret
      *
      * @param string $apiKey    The API key
      * @param string $apiSecret The super secret API passphrase
@@ -143,9 +141,7 @@ class Services_Scribd
     }
 
     /**
-     * __get
-     *
-     * Magic method use to load individual drivers.
+     * Loads individual endpoint drivers
      *
      * @param string $driver The driver we want to load
      *
@@ -168,9 +164,7 @@ class Services_Scribd
     }
 
     /**
-     * _factory
-     *
-     * Churn out individual API drivers.
+     * Churns out individual API endpoint drivers
      *
      * @param string $driver The driver we want to load
      *

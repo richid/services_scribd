@@ -36,9 +36,7 @@ require_once 'Services/Scribd/Common.php';
 class Services_Scribd_Docs extends Services_Scribd_Common
 {
     /**
-     * validEndpoints 
-     *
-     * Array of API endpoints that are supported.
+     * Array of API endpoints that are supported
      *
      * @var array
      */
@@ -55,9 +53,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     );
 
     /**
-     * _validDocTypes 
-     *
-     * Document types that are supported by Scribd.
+     * Document types that are supported by Scribd
      *
      * @var array
      */
@@ -68,10 +64,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     );
 
     /**
-     * changeSettings
-     *
-     * Change some metadata for one or many documents.  Always returns true
-     * since any problems will be reported by the call() method.
+     * Changes metadata for one or many documents
      *
      * @param array $docIds   Array of document ids to modify
      * @param array $settings Associative array of values to use
@@ -114,10 +107,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     }
 
     /**
-     * delete
-     *
-     * Delete a document.  Always returns true since any problems will be
-     * reported by the call() method.
+     * Deletes a document
      *
      * @param integer $docId The id of the document to delete
      *
@@ -135,9 +125,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     }
 
     /**
-     * getConversionStatus
-     *
-     * Retrieve the conversion status of a document.
+     * Retrieves the conversion status of a document
      *
      * @param integer $docId The id of document to check
      *
@@ -154,9 +142,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     }
 
     /**
-     * getDownloadUrl
-     *
-     * Get a download URL for a particular document.
+     * Gets a download URL for a particular document
      *
      * @param integer $docId   The id of the document
      * @param string  $docType The format of the document
@@ -182,9 +168,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     }
 
     /**
-     * getList
-     *
-     * Revtrieve a list of documents owned by a user.
+     * Revtrieves a list of documents owned by a user
      *
      * @param integer $limit         Max amount of results to return
      * @param integer $offset        Offset into the list of documents
@@ -207,9 +191,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     }
 
     /**
-     * getSettings
-     *
-     * Get metadata about a particular document.
+     * Gets metadata about a particular document
      *
      * @param integer $docId The id of the document
      *
@@ -224,7 +206,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     }
 
     /**
-     * Search for the text string within the Scribd documents.
+     * Searches for the text string within Scribd documents
      *
      * @param string  $query  The text to search for
      * @param string  $scope  Whether to search all of Scribd or just the
@@ -271,9 +253,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     }
 
     /**
-     * upload
-     *
-     * Upload and publish a document from the filesystem.
+     * Uploads and publishes a document from the filesystem
      *
      * @param string  $filepath    A path to the file we want to upload
      * @param string  $docType     The type of document
@@ -315,17 +295,13 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     }
 
     /**
-     * uploadFromUrl
-     *
-     * Upload and publish a document from a URL.
+     * Uploads and publishes a document from a URL
      *
      * @param string  $url         The URL where the file is located
      * @param string  $docType     The type of document
      * @param string  $access      Document Access {public, private}
      * @param integer $paidContent Is this paid content? {0,1}
      * @param integer $revisionId  The document id we are revising
-     *
-     * @todo Should we verify the file exists?
      *
      * @link http://www.scribd.com/publisher/api?method_name=docs.uploadFromUrl
      * @throws Services_Scribd_Exception

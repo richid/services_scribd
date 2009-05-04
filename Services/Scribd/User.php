@@ -35,9 +35,7 @@ require_once 'Services/Scribd/Common.php';
 class Services_Scribd_User extends Services_Scribd_Common
 {
     /**
-     * validEndpoints 
-     *
-     * Array of API endpoints that are supported.
+     * Array of API endpoints that are supported
      *
      * @var array
      */
@@ -48,10 +46,8 @@ class Services_Scribd_User extends Services_Scribd_Common
     );
 
     /**
-     * getAutoSigninUrl
-     *
-     * Get a URL that, when visited, will automatically log the user in and
-     * then redirect to the URL you provide.
+     * Returns a URL that, when visited, will automatically log a user in and
+     * then redirect to the URL provided
      *
      * @param string $redirectUrl The URL to redirect to after logging in
      *
@@ -68,9 +64,7 @@ class Services_Scribd_User extends Services_Scribd_Common
     }
 
     /**
-     * login
-     *
-     * Sign in as an existing Scribd user and execute methods as that user.
+     * Signs in as an existing Scribd user and executes methods as that user
      *
      * @param string $username The username or email address to login with
      * @param string $password Password of the account
@@ -92,9 +86,7 @@ class Services_Scribd_User extends Services_Scribd_Common
     }
 
     /**
-     * signup
-     *
-     * Create a new Scribd account.
+     * Creates a new Scribd account
      *
      * @param string $username The username to create
      * @param string $password Password to set

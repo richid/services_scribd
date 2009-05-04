@@ -42,10 +42,8 @@ class Services_Scribd_Common extends Services_Scribd
     protected $arguments = array();
 
     /**
-     * _skipSignatureArguments 
-     *
      * An array of arguments that we must skip when calculating the API
-     * signature.
+     * signature
      *
      * @link http://www.scribd.com/publisher/api?method_name=Signing
      * @var array
@@ -55,10 +53,7 @@ class Services_Scribd_Common extends Services_Scribd
     );
 
     /**
-     * __construct
-     *
-     * This is only defined so that the call doesn't bubble up to
-     * Serices_Scribd::_construct()
+     * Prevents calls from bubbling up to Serices_Scribd::_construct()
      *
      * @return void
      */
@@ -67,9 +62,7 @@ class Services_Scribd_Common extends Services_Scribd
     }
 
     /**
-     * getAvailableEndpoints
-     *
-     * Return an array of endpoints for this driver.
+     * Returns an array of endpoints for this driver
      *
      * @return array
      */
@@ -79,9 +72,7 @@ class Services_Scribd_Common extends Services_Scribd
     }
 
     /**
-     * __call
-     *
-     * Trap any requests to endpoints we have not defined.
+     * Traps any requests to endpoints that are not defined
      *
      * @param string $endpoint The invalid endpoint requested
      * @param array  $params   Array of params for this endpoint
@@ -97,9 +88,9 @@ class Services_Scribd_Common extends Services_Scribd
     }
 
     /**
-     * call
+     * Builds, sends, and returns the response for an API request
      *
-     * Using curl, actually send the request to the Scribd API.  Delegates to
+     * Using curl, actually send the request to the Scribd API. Delegates to
      * helper methods to format the arguments, send request, response, etc.
      *
      * @param string $endpoint The requested endpoint
@@ -125,7 +116,7 @@ class Services_Scribd_Common extends Services_Scribd
     }
 
     /**
-     * sendRequest
+     * Sends the request to the Scribd API
      *
      * @param string $uri    The API URI to request
      * @param string $method The HTTP method to use
@@ -157,10 +148,9 @@ class Services_Scribd_Common extends Services_Scribd
     }
 
     /**
-     * _buildRequestURI
+     * Builds the API request URI
      *
-     * Method to build the API request URI.  Delegates the merging and request
-     * signing to more specific methods.
+     * Delegates the merging and request signing to more specific methods.
      *
      * @param string $endpoint The requested endpoint
      * @param string $method   The HTTP method to use, defaults to GET
@@ -183,9 +173,7 @@ class Services_Scribd_Common extends Services_Scribd
     }
 
     /**
-     * _mergeRequestArguments
-     *
-     * Merge some required API arguments with those specific to this request.
+     * Merges required API arguments with request specific arguments
      *
      * @param string $endpoint The requested endpoint
      *
@@ -214,10 +202,10 @@ class Services_Scribd_Common extends Services_Scribd
     }
 
     /**
-     * _signRequest
+     * Signs the request
      *
-     * If the Services_Scribd::$apiSecret variable has been set calculate a
-     * signature to help protect against evesdropping attacks.
+     * Generates an API signature if the Services_Scribd::$apiSecret variable
+     * has been set to help protect against evesdropping attacks.
      *
      * @link http://www.scribd.com/publisher/api?method_name=Signing
      * @see Services_Scribd::$apiSecret
@@ -247,10 +235,7 @@ class Services_Scribd_Common extends Services_Scribd
     }
 
     /**
-     * _formatResponse
-     *
-     * Create and return a SimpleXMLElement element given the raw XML response
-     * return from the API.
+     * Returns a SimpleXMLElement element from the raw XML response
      *
      * @param string $response The XML response from the API
      *
@@ -277,9 +262,7 @@ class Services_Scribd_Common extends Services_Scribd
     }
 
     /**
-     * _reset
-     *
-     * Perform any cleanup after the request has been sent.
+     * Performs any cleanup after the request has been sent
      *
      * @return void
      */
