@@ -60,20 +60,6 @@ class Services_Scribd
     const API = 'http://api.scribd.com/api';
 
     /**
-     * HTTP GET method
-     *
-     * @var string
-     */
-    const HTTP_METHOD_GET = 'GET';
-
-    /**
-     * HTTP POST method
-     *
-     * @var string
-     */
-    const HTTP_METHOD_POST = 'POST';
-
-    /**
      * API key
      *
      * @var string

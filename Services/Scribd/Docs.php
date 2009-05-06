@@ -101,7 +101,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments['doc_ids'] = $docIds;
 
         $response = $this->call('docs.changeSettings',
-                                Services_Scribd::HTTP_METHOD_POST);
+                                HTTP_Request2::METHOD_POST);
 
         return true;
     }
@@ -119,7 +119,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     {
         $this->arguments['doc_id'] = $docId;
 
-        $this->call('docs.delete', Services_Scribd::HTTP_METHOD_POST);
+        $this->call('docs.delete', HTTP_Request2::METHOD_POST);
 
         return true;
     }
@@ -280,14 +280,13 @@ class Services_Scribd_Docs extends Services_Scribd_Common
             );
         }
 
-        $this->arguments['file']         = '@' . $filepath;
+        $this->arguments['file']         = $filepath;
         $this->arguments['doc_type']     = $docType;
         $this->arguments['access']       = $access;
         $this->arguments['paid_content'] = $paidContent;
         $this->arguments['rev_id']       = $revisionId;
 
-        $response = $this->call('docs.upload',
-                                Services_Scribd::HTTP_METHOD_POST);
+        $response = $this->call('docs.upload', HTTP_Request2::METHOD_POST);
 
         unset($response['stat']);
 
@@ -323,7 +322,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments['rev_id']       = $revisionId;
 
         $response = $this->call('docs.uploadFromUrl',
-                                Services_Scribd::HTTP_METHOD_POST);
+                                HTTP_Request2::METHOD_POST);
     
         unset($response['stat']);
 

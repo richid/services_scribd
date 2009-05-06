@@ -77,8 +77,7 @@ class Services_Scribd_User extends Services_Scribd_Common
         $this->arguments['username'] = $username;
         $this->arguments['password'] = $password;
 
-        $response = $this->call('user.login',
-                                Services_Scribd::HTTP_METHOD_POST);
+        $response = $this->call('user.login', HTTP_Request2::METHOD_POST);
 
         unset($response['stat']);
 
@@ -102,7 +101,7 @@ class Services_Scribd_User extends Services_Scribd_Common
         $this->arguments['email']    = $email;
         $this->arguments['name']     = $name;
 
-        $response = $this->call('user.signup', Services_Scribd::HTTP_METHOD_POST);
+        $response = $this->call('user.signup', HTTP_Request2::METHOD_POST);
 
         unset($response['stat']);
 

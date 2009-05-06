@@ -19,7 +19,8 @@
  * @link      http://pear.php.net/package/Services_Scribd
  */
 
-require_once 'Services/Scribd/Common.php';
+require_once 'Services/Scribd.php';
+require_once 'HTTP/Request2.php';
 
 /**
  * This class contains common logic needed for all the API endpoints.  Handles
@@ -100,10 +101,10 @@ class Services_Scribd_Common extends Services_Scribd
      * @return mixed
      */
     protected function call($endpoint,
-                            $method = Services_Scribd::HTTP_METHOD_GET)
+                            $method = HTTP_Request2::METHOD_GET)
     {
-        if ($method !== Services_Scribd::HTTP_METHOD_GET
-            && $method !== Services_Scribd::HTTP_METHOD_POST) {
+        if ($method !== HTTP_Request2::METHOD_GET
+            && $method !== HTTP_Request2::METHOD_POST) {
             throw new Services_Scribd_Exception('Invalid HTTP method: ' . $method);
         }
 
@@ -126,25 +127,35 @@ class Services_Scribd_Common extends Services_Scribd
      */
     protected function sendRequest($uri, $method)
     {
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $uri);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_TIMEOUT, Services_Scribd::$timeout);
+        $config = array(
+            'timeout' => Services_Scribd::$timeout
+        );
 
-        if ($method === Services_Scribd::HTTP_METHOD_POST) {
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $this->arguments);
+        $request = new HTTP_Request2($uri, $method, $config);
+        $request->setHeader('User-Agent', '@name@/@package-version@');
+        $request->setHeader('Content-Type', 'multipart/form-data');
+
+        if ($method === HTTP_Request2::METHOD_POST) {
+            $request = $request->addPostParameter($this->arguments);
+
+            if (array_key_exists('file', $this->arguments)) {
+                $request->addUpload('file', $this->arguments['file']);
+            }
         }
 
-        $response = curl_exec($curl);
-
-        if (curl_errno($curl)) {
-            throw new Services_Scribd_Exception(curl_error($curl));
+        try {
+            $response = $request->send();
+        } catch (HTTP_Request2_Exception $e) {
+            throw new Services_Scribd_Exception($e->getMessage(), $e->getCode());
         }
 
-        curl_close($curl);
+        if ($response->getStatus() !== 200) {
+            throw new Services_Scribd_Exception(
+                'Invalid response returned from server'
+            );
+        }
 
-        return $response;
+        return $response->getBody();
     }
 
     /**
@@ -163,7 +174,7 @@ class Services_Scribd_Common extends Services_Scribd
 
         $this->_signRequest();
 
-        if ($method === Services_Scribd::HTTP_METHOD_POST) {
+        if ($method === HTTP_Request2::METHOD_POST) {
             return Services_Scribd::API;
         }
 
