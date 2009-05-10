@@ -22,7 +22,9 @@ class Services_Scribd_UserTest extends Services_Scribd_CommonTest
         $expectedResponse = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rsp stat="ok">
-  <url>http://www.scribd.com/login/auto_login/999?hash=1a1d&next_url=%2F</url>
+  <url>
+    <![CDATA[http://www.scribd.com/login/auto_login/999?hash=1a1d&next_url=%2F]]>
+  </url>
 </rsp>
 XML;
 
