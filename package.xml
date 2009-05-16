@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.8.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-    http://pear.php.net/dtd/tasks-1.0.xsd
-    http://pear.php.net/dtd/package-2.0
-    http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.8.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>Services_Scribd</name>
  <channel>pear.php.net</channel>
  <summary>Interface for Scribd&apos;s public API.</summary>
@@ -13,11 +10,11 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-04-28</date>
- <time>00:43:34</time>
+ <date>2009-05-16</date>
+ <time>00:44:49</time>
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>0.0.2</release>
+  <api>0.0.2</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -25,38 +22,57 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Initial build for Services_Scribd.
+* Now uses the HTTP_Request2 package to send requests
+* Added ability to set a custom HTTP_Request2 adatper
+* Separated account related concerns into a new Services_Scribd_Account class
+* Updated the unit tests accordingly.  Now has 100% code coverage.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="78a682920d15d86c595aaa58eb89985e" name="Services/Scribd.php" role="php">
+   <file baseinstalldir="/" md5sum="5578f9a7229ec240da2689a712faba6d" name="Services/Scribd.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="f68dd30955c2658bbb703cc9adeb4058" name="Services/Scribd/Common.php" role="php">
+   <file baseinstalldir="/" md5sum="eaa0155cddace1e8c9d0ec947bd27690" name="Services/Scribd/Account.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="a94aaff362ff36ead45d94867d9f0942" name="Services/Scribd/Docs.php" role="php">
+   <file baseinstalldir="/" md5sum="14e0e4b0b68b6f14506a3fdf7ec6dfcf" name="Services/Scribd/Common.php" role="php">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+    <tasks:replace from="@package-name@" to="name" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="5f959e4741b057bc2b48c9c1161a3816" name="Services/Scribd/Docs.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="0331762f7779b0f516e07de2ca58afda" name="Services/Scribd/Exception.php" role="php">
+   <file baseinstalldir="/" md5sum="110c47f3337ae94808702de05d8ca49b" name="Services/Scribd/Dummy.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="7a384a8b895dc7f2a0a640bff2755b57" name="Services/Scribd/User.php" role="php">
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="Services/Scribd/Empty.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="115b7622c2c54c135ca6a570903c9e14" name="tests/AllTests.php" role="test">
+   <file baseinstalldir="/" md5sum="6ee6217fc0e88b5298a230a7010bc4e1" name="Services/Scribd/Exception.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="ec592104bf1fe69ab9c159c3023d415d" name="tests/CommonTest.php" role="test">
+   <file baseinstalldir="/" md5sum="cf4bdeaffc053156551e24f98badcd52" name="Services/Scribd/User.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="7df17940b187ed4ae60c136f38dc392d" name="tests/DocsTest.php" role="test">
+   <file baseinstalldir="/" md5sum="b7bb13a3c479bca05281b7870158a8b3" name="tests/AccountTest.php" role="test">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="9f386ba122bc4e6eaba6db429caa7923" name="tests/ScribdTest.php" role="test">
+   <file baseinstalldir="/" md5sum="c75c4d9afcdbffd0e883dc9be5a3ea09" name="tests/AllTests.php" role="test">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="38bb297a922399e88f39cb5b31600396" name="tests/UserTest.php" role="test">
+   <file baseinstalldir="/" md5sum="9b0792265043e0208f036bad7cf921df" name="tests/CommonTest.php" role="test">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="61432e364a5e77708b7ed75217a3c067" name="tests/DocsTest.php" role="test">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="46a97ba039ee6ed0ae50dd35f9f75d59" name="tests/DummyTest.php" role="test">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="105deeb3e06fc80de591ed20e9c4007e" name="tests/ScribdTest.php" role="test">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="9209e706d0976f022a2061854dec7506" name="tests/UserTest.php" role="test">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
   </dir>
@@ -69,16 +85,41 @@
    <pearinstaller>
     <min>1.6.4</min>
    </pearinstaller>
+   <package>
+    <name>HTTP_Request2</name>
+    <channel>pear.php.net</channel>
+   </package>
    <extension>
     <name>curl</name>
    </extension>
    <extension>
     <name>simplexml</name>
    </extension>
+   <extension>
+    <name>mbstring</name>
+   </extension>
   </required>
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-05-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Now uses the HTTP_Request2 package to send requests
+* Added ability to set a custom HTTP_Request2 adatper
+* Separated account related concerns into a new Services_Scribd_Account class
+* Updated the unit tests accordingly.  Now has 100% code coverage.
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.0.1</release>
