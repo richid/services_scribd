@@ -161,7 +161,7 @@ class Services_Scribd_Common extends Services_Scribd
         );
 
         $request = new HTTP_Request2($uri, $method, $config);
-        $request->setHeader('User-Agent', '@name@/@package-version@');
+        $request->setHeader('User-Agent', '@package-name@-@package-version@');
         $request->setHeader('Content-Type', 'multipart/form-data');
         $request->setAdapter($this->requestAdapter);
 
