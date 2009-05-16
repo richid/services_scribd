@@ -25,7 +25,7 @@ require_once 'HTTP/Request2.php';
 /**
  * This class contains common logic needed for all the API endpoints.  Handles
  * tasks such as sending requests, signing the requests, etc.
- * 
+ *
  * @category  Services
  * @package   Services_Scribd
  * @author    Rich Schumacher <rich.schu@gmail.com>
@@ -43,6 +43,20 @@ class Services_Scribd_Common extends Services_Scribd
     protected $arguments = array();
 
     /**
+     * The Scribd account to use for requests
+     *
+     * @var Services_Scribd_Account
+     */
+    protected $account = null;
+
+    /**
+     * The HTTP request adapter to use
+     * 
+     * @var string|HTTP_Request2_Adapter
+     */
+    protected $requestAdapter = 'HTTP_Request2_Adapter_Curl';
+
+    /**
      * An array of arguments that we must skip when calculating the API
      * signature
      *
@@ -56,10 +70,13 @@ class Services_Scribd_Common extends Services_Scribd
     /**
      * Prevents calls from bubbling up to Serices_Scribd::_construct()
      *
+     * @param Services_Scribd_Account $account The account to use
+     *
      * @return void
      */
-    public function __construct()
+    public function __construct(Services_Scribd_Account $account)
     {
+        $this->account = $account;
     }
 
     /**
@@ -86,6 +103,18 @@ class Services_Scribd_Common extends Services_Scribd
         throw new Services_Scribd_Exception(
             'Invalid endpoint requested: ' . $endpoint
         );
+    }
+
+    /**
+     * Sets the request adapter to use for this request
+     * 
+     * @param HTTP_Request2_Adapter $adapter An instance of th adapter
+     * 
+     * @return void
+     */
+    public function setRequestAdapter(HTTP_Request2_Adapter $adapter)
+    {
+        $this->requestAdapter = $adapter;
     }
 
     /**
@@ -128,12 +157,13 @@ class Services_Scribd_Common extends Services_Scribd
     protected function sendRequest($uri, $method)
     {
         $config = array(
-            'timeout' => Services_Scribd::$timeout
+            'timeout' => $this->timeout
         );
 
         $request = new HTTP_Request2($uri, $method, $config);
         $request->setHeader('User-Agent', '@name@/@package-version@');
         $request->setHeader('Content-Type', 'multipart/form-data');
+        $request->setAdapter($this->requestAdapter);
 
         if ($method === HTTP_Request2::METHOD_POST) {
             $request = $request->addPostParameter($this->arguments);
@@ -151,7 +181,8 @@ class Services_Scribd_Common extends Services_Scribd
 
         if ($response->getStatus() !== 200) {
             throw new Services_Scribd_Exception(
-                'Invalid response returned from server'
+                'Invalid response returned from server',
+                $response->getStatus()
             );
         }
 
@@ -194,15 +225,15 @@ class Services_Scribd_Common extends Services_Scribd
     {
         $requiredArguments = array(
             'method'  => $endpoint,
-            'api_key' => Services_Scribd::$apiKey
+            'api_key' => $this->account->apiKey
         );
 
-        if (Services_Scribd::$apiSessionKey !== null) {
-            $this->arguments['session_key'] = Services_Scribd::$apiSessionKey;
+        if ($this->account->apiSessionKey !== null) {
+            $this->arguments['session_key'] = $this->account->apiSessionKey;
         }
 
-        if (Services_Scribd::$myUserId !== null) {
-            $this->arguments['my_user_id'] = Services_Scribd::$myUserId;
+        if ($this->account->myUserId !== null) {
+            $this->arguments['my_user_id'] = $this->account->myUserId;
         }
 
         // Get rid of any nulls
@@ -224,7 +255,7 @@ class Services_Scribd_Common extends Services_Scribd
      */
     private function _signRequest()
     {
-        if (Services_Scribd::$apiSecret === null) {
+        if ($this->account->apiSecret === null) {
             return;
         }
 
@@ -242,7 +273,7 @@ class Services_Scribd_Common extends Services_Scribd
             }
         }
 
-        $this->arguments['api_sig'] = md5(Services_Scribd::$apiSecret . $apiSig);
+        $this->arguments['api_sig'] = md5($this->account->apiSecret . $apiSig);
     }
 
     /**

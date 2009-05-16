@@ -19,11 +19,12 @@
  * @link      http://pear.php.net/package/Services_Scribd
  */
 
+require_once 'Services/Scribd/Account.php';
 require_once 'Services/Scribd/Exception.php';
 
 /**
  * The base class for the Scribd API interface.  Takes care of defining common
- * variables and loading the indidividual drivers.
+ * variables and loading the individual drivers.
  *
  * <code>
  * <?php
@@ -60,40 +61,18 @@ class Services_Scribd
     const API = 'http://api.scribd.com/api';
 
     /**
-     * API key
-     *
-     * @var string
-     */
-    static public $apiKey = null;
-
-    /**
-     * API secret
-     *
-     * @var string
-     */
-    static public $apiSecret = null;
-
-    /**
-     * Third party user id to associate with the requests
-     *
-     * @link http://www.scribd.com/publisher/api?method_name=Authentication
-     * @var string
-     */
-    static public $myUserId = null;
-
-    /**
      * Timeout to use when making the request
      *
      * @var integer
      */
-    static public $timeout = 10;
+    protected $timeout = 10;
 
     /**
-     * The API session key
+     * The Scribd account to use for requests
      *
-     * @var string
+     * @var Services_Scribd_Account
      */
-    static public $apiSessionKey = null;
+    protected $account = null;
 
     /**
      * An array that contains instances of the individual drivers
@@ -103,27 +82,32 @@ class Services_Scribd
     private $_drivers = array();
 
     /**
-     * An array of drivers that we support
+     * An array of supported drivers
      *
      * @var array
      */
     private $_validDrivers = array(
         'docs',
-        'user'
+        'user',
+        'empty'
     );
 
     /**
      * Sets the API key and optional API secret
      *
-     * @param string $apiKey    The API key
-     * @param string $apiSecret The super secret API passphrase
+     * @param string|Services_Scribd_Account $spec      The API key or an
+     * existing account object
+     * @param string                         $apiSecret The API secret
      *
      * @return void
      */
-    public function __construct($apiKey, $apiSecret = null)
+    public function __construct($spec, $apiSecret = null)
     {
-        self::$apiKey    = $apiKey;
-        self::$apiSecret = $apiSecret;
+        if ($spec instanceof Services_Scribd_Account) {
+            $this->account = $spec;
+        } else {
+            $this->account = new Services_Scribd_Account($spec, $apiSecret);
+        }
     }
 
     /**
@@ -150,6 +134,29 @@ class Services_Scribd
     }
 
     /**
+     * Sets the Scribd account to use
+     *
+     * @param Services_Scribd_Account $account The account to set
+     *
+     * @return void
+     */
+    public function setAccount(Services_Scribd_Account $account)
+    {
+        $this->account  = $account;
+        $this->_drivers = array();
+    }
+
+    /**
+     * Returns the current account instance
+     *
+     * @return Services_Scribd_Account
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
+
+    /**
      * Churns out individual API endpoint drivers
      *
      * @param string $driver The driver we want to load
@@ -171,7 +178,7 @@ class Services_Scribd
             );
         }
 
-        return new $class();
+        return new $class($this->account);
     }
 }
 
