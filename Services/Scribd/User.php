@@ -24,7 +24,7 @@ require_once 'Services/Scribd/Common.php';
 /**
  * The interface for the "user" API endpoint.  Allows the user to create an
  * account and login to different accounts.
- * 
+ *
  * @category  Services
  * @package   Services_Scribd
  * @author    Rich Schumacher <rich.schu@gmail.com>

@@ -25,7 +25,7 @@ require_once 'Services/Scribd/Common.php';
  * The interface for the "docs" API endpoint.  Provides all interaction that
  * is associated with a specific document or several documents, such as
  * uploading, editing, etc.
- * 
+ *
  * @category  Services
  * @package   Services_Scribd
  * @author    Rich Schumacher <rich.schu@gmail.com>

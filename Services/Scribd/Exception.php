@@ -23,7 +23,7 @@ require_once 'PEAR/Exception.php';
 
 /**
  * Generic exception thrown by Services_Scribd.
- * 
+ *
  * @category  Exception
  * @package   Services_Scribd
  * @author    Rich Schumacher <rich.schu@gmail.com>
