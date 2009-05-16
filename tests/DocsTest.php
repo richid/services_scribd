@@ -47,7 +47,7 @@ XML;
             'invalid'     => true
         );
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->changeSettings($ids, $settings);
 
         $this->assertType('bool', $response);
@@ -62,7 +62,7 @@ XML;
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->delete(1234);
 
         $this->assertType('bool', $response);
@@ -78,7 +78,7 @@ XML;
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->getConversionStatus(1234);
 
         $this->assertType('string', $response);
@@ -96,7 +96,7 @@ XML;
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->getDownloadUrl(1234);
 
         $this->assertType('string', $response);
@@ -137,7 +137,7 @@ XML;
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->getList();
 
         $this->assertType('SimpleXMLElement', $response);
@@ -183,7 +183,7 @@ XML;
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->getSettings(1234);
     
         $this->assertType('SimpleXMLElement', $response);
@@ -247,7 +247,7 @@ XML;
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->search('test');
 
         $this->assertType('array', $response);
@@ -302,7 +302,7 @@ XML;
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->upload(__FILE__, 'txt');
         
         $this->assertType('SimpleXMLElement', $response);
@@ -336,7 +336,7 @@ XML;
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->uploadFromUrl('http://d.scribd.com/docs/5xttn3dmcm0gkxshomn.txt', 'txt');
         
         $this->assertType('SimpleXMLElement', $response);
@@ -365,7 +365,7 @@ XML;
         $this->setExpectedException('Services_Scribd_Exception',
                                     'Could not parse XML response');
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $this->scribd->getList();
     }
 
@@ -382,8 +382,36 @@ XML;
                                     'Unauthorized',
                                     401);
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $this->scribd->getList();
+    }
+
+    public function testInvalidHTTPResponseCode()
+    {
+        $this->setExpectedException('Services_Scribd_Exception',
+                                    'Invalid response returned from server',
+                                    404);
+
+        $this->setHTTPResponse('', 'HTTP/1.1 404 Not Found');
+        $this->scribd->getList();
+    }
+
+    public function testUnsignedRequest()
+    {
+        $expectedResponse = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok">
+</rsp>
+XML;
+
+        $account = new Services_Scribd_Account('key');
+        $this->scribd->setAccount($account);
+
+        $this->setHTTPResponse($expectedResponse);
+        $response = $this->scribd->delete(1234);
+
+        $this->assertType('bool', $response);
+        $this->assertEquals(true, $response);
     }
 }
 

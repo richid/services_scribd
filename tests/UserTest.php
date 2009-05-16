@@ -6,7 +6,7 @@ class Services_Scribd_UserTest extends Services_Scribd_CommonTest
 {
     public function testGetAvailableEndpoints()
     {
-        $endpoints = $this->scribd->user->getAvailableEndpoints();
+        $endpoints = $this->scribd->getAvailableEndpoints();
 
         $this->assertType('array', $endpoints);
         $this->assertArrayHasKey(0, $endpoints);
@@ -28,7 +28,7 @@ class Services_Scribd_UserTest extends Services_Scribd_CommonTest
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->getAutoSigninUrl();
 
         $this->assertType('string', $response);
@@ -47,7 +47,7 @@ XML;
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->login('richid-test', 'pass');
 
         $this->assertType('SimpleXMLElement', $response);
@@ -69,7 +69,7 @@ XML;
 </rsp>
 XML;
 
-        $this->mockSendRequest($expectedResponse);
+        $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->signup('richid-test2', 'pass', 'rich@email.com');
 
         $this->assertType('SimpleXMLElement', $response);
