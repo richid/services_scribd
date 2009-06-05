@@ -10,11 +10,11 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-05-16</date>
- <time>00:44:49</time>
+ <date>2009-06-04</date>
+ <time>21:14:44</time>
  <version>
-  <release>0.0.2</release>
-  <api>0.0.2</api>
+  <release>0.0.3</release>
+  <api>0.0.3</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -22,10 +22,9 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Now uses the HTTP_Request2 package to send requests
-* Added ability to set a custom HTTP_Request2 adatper
-* Separated account related concerns into a new Services_Scribd_Account class
-* Updated the unit tests accordingly.  Now has 100% code coverage.
+Modified Servicse_Scribd_Common::sendRequest() to only set the HTTP_Request2 adapter if it is not null.
+Fix the package name and version string that is sent out during the request.
+Updated the unit tests to comply with the new changes.  Also used the HTTP_Request2 mock adapter, which is a lifesaver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -35,7 +34,7 @@
    <file baseinstalldir="/" md5sum="eaa0155cddace1e8c9d0ec947bd27690" name="Services/Scribd/Account.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="14e0e4b0b68b6f14506a3fdf7ec6dfcf" name="Services/Scribd/Common.php" role="php">
+   <file baseinstalldir="/" md5sum="7c115cf21ec5a1854f56e678dd0d1cef" name="Services/Scribd/Common.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
     <tasks:replace from="@package-name@" to="name" type="package-info" />
    </file>
@@ -88,10 +87,8 @@
    <package>
     <name>HTTP_Request2</name>
     <channel>pear.php.net</channel>
+    <min>0.4.0</min>
    </package>
-   <extension>
-    <name>curl</name>
-   </extension>
    <extension>
     <name>simplexml</name>
    </extension>
@@ -102,6 +99,23 @@
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-06-04</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+Modified Servicse_Scribd_Common::sendRequest() to only set the HTTP_Request2 adapter if it is not null.
+Fix the package name and version string that is sent out during the request.
+Updated the unit tests to comply with the new changes.  Also used the HTTP_Request2 mock adapter, which is a lifesaver.
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.0.2</release>
