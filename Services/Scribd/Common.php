@@ -54,7 +54,7 @@ class Services_Scribd_Common extends Services_Scribd
      * 
      * @var string|HTTP_Request2_Adapter
      */
-    protected $requestAdapter = 'HTTP_Request2_Adapter_Curl';
+    protected $requestAdapter = null;
 
     /**
      * An array of arguments that we must skip when calculating the API
@@ -163,7 +163,10 @@ class Services_Scribd_Common extends Services_Scribd
         $request = new HTTP_Request2($uri, $method, $config);
         $request->setHeader('User-Agent', '@package-name@-@package-version@');
         $request->setHeader('Content-Type', 'multipart/form-data');
-        $request->setAdapter($this->requestAdapter);
+        
+        if ($this->requestAdapter !== null) {
+            $request->setAdapter($this->requestAdapter);
+        }
 
         if ($method === HTTP_Request2::METHOD_POST) {
             $request = $request->addPostParameter($this->arguments);
