@@ -129,8 +129,7 @@ class Services_Scribd_Common extends Services_Scribd
      * @throws Services_Scribd_Exception
      * @return mixed
      */
-    protected function call($endpoint,
-                            $method = HTTP_Request2::METHOD_GET)
+    protected function call($endpoint, $method = HTTP_Request2::METHOD_GET)
     {
         if ($method !== HTTP_Request2::METHOD_GET
             && $method !== HTTP_Request2::METHOD_POST) {
@@ -163,7 +162,7 @@ class Services_Scribd_Common extends Services_Scribd
         $request = new HTTP_Request2($uri, $method, $config);
         $request->setHeader('User-Agent', '@package-name@-@package-version@');
         $request->setHeader('Content-Type', 'multipart/form-data');
-        
+
         if ($this->requestAdapter !== null) {
             $request->setAdapter($this->requestAdapter);
         }
