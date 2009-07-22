@@ -10,11 +10,11 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-06-04</date>
- <time>21:14:44</time>
+ <date>2009-07-22</date>
+ <time>11:12:52</time>
  <version>
-  <release>0.0.3</release>
-  <api>0.0.3</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-Modified Servicse_Scribd_Common::sendRequest() to only set the HTTP_Request2 adapter if it is not null.
-Fix the package name and version string that is sent out during the request.
-Updated the unit tests to comply with the new changes.  Also used the HTTP_Request2 mock adapter, which is a lifesaver.
+Initial public release for version 0.1.0
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -34,7 +32,7 @@ Updated the unit tests to comply with the new changes.  Also used the HTTP_Reque
    <file baseinstalldir="/" md5sum="eaa0155cddace1e8c9d0ec947bd27690" name="Services/Scribd/Account.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="7c115cf21ec5a1854f56e678dd0d1cef" name="Services/Scribd/Common.php" role="php">
+   <file baseinstalldir="/" md5sum="70861e53af494b5e78c65969f907e196" name="Services/Scribd/Common.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
     <tasks:replace from="@package-name@" to="name" type="package-info" />
    </file>
@@ -99,6 +97,21 @@ Updated the unit tests to comply with the new changes.  Also used the HTTP_Reque
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-07-22</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+Initial public release for version 0.1.0
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.0.3</release>
