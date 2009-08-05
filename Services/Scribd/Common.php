@@ -161,18 +161,17 @@ class Services_Scribd_Common extends Services_Scribd
 
         $request = new HTTP_Request2($uri, $method, $config);
         $request->setHeader('User-Agent', '@package-name@-@package-version@');
-        $request->setHeader('Content-Type', 'multipart/form-data');
 
         if ($this->requestAdapter !== null) {
             $request->setAdapter($this->requestAdapter);
         }
 
         if ($method === HTTP_Request2::METHOD_POST) {
-            $request = $request->addPostParameter($this->arguments);
-
             if (array_key_exists('file', $this->arguments)) {
                 $request->addUpload('file', $this->arguments['file']);
+                unset($this->arguments['file']);
             }
+            $request = $request->addPostParameter($this->arguments);
         }
 
         try {
