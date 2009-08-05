@@ -10,10 +10,10 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-07-22</date>
- <time>11:12:52</time>
+ <date>2009-08-04</date>
+ <time>19:45:44</time>
  <version>
-  <release>0.1.0</release>
+  <release>0.1.1</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-Initial public release for version 0.1.0
+Fixed a bug where the &apos;file&apos; POST param wasn&apos;t being unset before the HTTP request was made.  This prevented the docs.upload from working properly.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -32,7 +32,7 @@ Initial public release for version 0.1.0
    <file baseinstalldir="/" md5sum="eaa0155cddace1e8c9d0ec947bd27690" name="Services/Scribd/Account.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="70861e53af494b5e78c65969f907e196" name="Services/Scribd/Common.php" role="php">
+   <file baseinstalldir="/" md5sum="4c31e90d3966afd3f690334c250f8bba" name="Services/Scribd/Common.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
     <tasks:replace from="@package-name@" to="name" type="package-info" />
    </file>
@@ -97,6 +97,21 @@ Initial public release for version 0.1.0
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-08-04</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+Fixed a bug where the &apos;file&apos; POST param wasn&apos;t being unset before the HTTP request was made.  This prevented the docs.upload from working properly.
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.1.0</release>
