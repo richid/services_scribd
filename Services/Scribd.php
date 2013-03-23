@@ -65,7 +65,7 @@ class Services_Scribd
      *
      * @var integer
      */
-    protected $timeout = 10;
+    public $timeout = 10;
 
     /**
      * The Scribd account to use for requests
