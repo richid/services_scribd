@@ -58,9 +58,30 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @var array
      */
     private $_validDocTypes = array(
-        'original',
         'pdf',
-        'txt'
+        'txt',
+        'ps',
+        'rtf',
+        'epub',
+        'odt',
+        'odp',
+        'ods',
+        'odg',
+        'odf',
+        'sxw',
+        'sxc',
+        'sxi',
+        'sxd',
+        'doc',
+        'ppt',
+        'pps',
+        'xls',
+        'docx',
+        'pptx',
+        'ppsx',
+        'xlsx',
+        'tif',
+        'tiff'
     );
 
     /**
