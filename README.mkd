@@ -1,0 +1,25 @@
+services_scribd
+=========================
+
+A simple PHP API client for Scribd.
+
+Basic Usage
+-----------
+
+<pre>
+<?php
+require_once 'Services/Scribd.php';
+
+$apiKey    = 'myAPIKey';
+$apiSecret = 'myAPISecret';
+
+$scribd = new Services_Scribd($apiKey, $apiSecret);
+
+try {
+    $result = $scribd->docs->search('vim');
+    var_dump($result);
+} catch (Services_Scribd_Exception $e) {
+    var_dump($e);
+}
+?>
+</pre>
