@@ -7,7 +7,6 @@ Basic Usage
 -----------
 
 <pre>
-<?php
 require_once 'Services/Scribd.php';
 
 $apiKey    = 'myAPIKey';
@@ -21,5 +20,4 @@ try {
 } catch (Services_Scribd_Exception $e) {
     var_dump($e);
 }
-?>
 </pre>
