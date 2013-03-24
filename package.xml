@@ -10,15 +10,15 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-08-04</date>
- <time>19:45:44</time>
+ <date>2013-03-24</date>
+ <time>12:10:00</time>
  <version>
-  <release>0.1.1</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
@@ -26,7 +26,7 @@ Fixed a bug where the &apos;file&apos; POST param wasn&apos;t being unset before
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="5578f9a7229ec240da2689a712faba6d" name="Services/Scribd.php" role="php">
+   <file baseinstalldir="/" md5sum="aab48c4bc5f7b53ccedf9b0d701b093b" name="Services/Scribd.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
    <file baseinstalldir="/" md5sum="eaa0155cddace1e8c9d0ec947bd27690" name="Services/Scribd/Account.php" role="php">
@@ -36,7 +36,7 @@ Fixed a bug where the &apos;file&apos; POST param wasn&apos;t being unset before
     <tasks:replace from="@package-version@" to="version" type="package-info" />
     <tasks:replace from="@package-name@" to="name" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="5f959e4741b057bc2b48c9c1161a3816" name="Services/Scribd/Docs.php" role="php">
+   <file baseinstalldir="/" md5sum="70344f564406a2fe04727d16402e3c8e" name="Services/Scribd/Docs.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
    <file baseinstalldir="/" md5sum="110c47f3337ae94808702de05d8ca49b" name="Services/Scribd/Dummy.php" role="php">
@@ -97,6 +97,22 @@ Fixed a bug where the &apos;file&apos; POST param wasn&apos;t being unset before
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2013-03-24</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Make Services_Scribd->timeout variable public for ease of configuration.
+* Update list of allowed document formats.
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.1.1</release>
