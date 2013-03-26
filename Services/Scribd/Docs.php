@@ -41,8 +41,10 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @var array
      */
     protected $validEndpoints = array(
+        'browse',
         'changeSettings',
         'delete',
+        'getCategories',
         'getConversionStatus',
         'getDownloadUrl',
         'getList',
@@ -94,6 +96,31 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      */
     private $_validDownloadDocTypes = array('pdf', 'txt', 'original');
 
+    /**
+     * Returns a list of documents that meet filter criteria
+     *
+     * @param integer $limit      Number of results to return
+     * @param integer $offset     Number to start at
+     * @param integer $categoryId A category ID to search documents in
+     * @param string  $sort       Sort order, options are popular, views, newest
+     *
+     * @link http://www.scribd.com/developers/platform/api/docs_browse
+     * @return SimpleXMLElement
+     */
+    public function browse($limit = 20, $offset = 1, $categoryId = null, $sort = 'popular')
+    {
+        $this->arguments['offset'] = $offset;
+        $this->arguments['limit']  = $limit;
+        $this->arguments['sort']   = $sort;
+
+        if ($categoryId !== null) {
+            $this->arguments['category_id'] = $categoryId;
+        }
+
+        $response = $this->call('docs.browse', HTTP_Request2::METHOD_GET);
+
+        return $response->result_set;
+    }
 
     /**
      * Changes metadata for one or many documents
@@ -102,7 +129,6 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @param array $settings Associative array of values to use
      *
      * @link http://www.scribd.com/developers/platform/api/docs_changesettings
-     * @see Services_Scribd_Common::call()
      * @return true
      */
     public function changeSettings(array $docIds, array $settings)
@@ -143,7 +169,6 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @param integer $docId The id of the document to delete
      *
      * @link http://www.scribd.com/developers/platform/api/docs_delete
-     * @see Services_Scribd_Common::call()
      * @return true
      */
     public function delete($docId)
@@ -153,6 +178,29 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->call('docs.delete', HTTP_Request2::METHOD_POST);
 
         return true;
+    }
+
+    /**
+     * Fetch a list of categories
+     *
+     * @param integer $categoryId        The ID of category to retrieve children
+     * for. If none - all root categories will be returned.
+     * @param boolean $withSubcategories Include subcategories in results
+     *
+     * @link http://www.scribd.com/developers/platform/api/docs_getcategories
+     * @return SimpleXMLElement
+     */
+    public function getCategories($categoryId = null, $withSubcategories = true)
+    {
+        $this->arguments['with_subcategories'] = $withSubcategories;
+
+        if ($categoryId !== null) {
+            $this->arguments['category_id'] = $categoryId;
+        }
+
+        $response = $this->call('docs.getCategories', HTTP_Request2::METHOD_GET);
+
+        return $response->result_set;
     }
 
     /**

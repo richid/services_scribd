@@ -9,24 +9,98 @@ class Services_Scribd_DocsTest extends Services_Scribd_CommonTest
         $endpoints = $this->scribd->getAvailableEndpoints();
 
         $this->assertInternalType('array', $endpoints);
-        $this->assertArrayHasKey(0, $endpoints);
-        $this->assertArrayHasKey(1, $endpoints);
-        $this->assertArrayHasKey(2, $endpoints);
-        $this->assertArrayHasKey(3, $endpoints);
-        $this->assertArrayHasKey(4, $endpoints);
-        $this->assertArrayHasKey(5, $endpoints);
-        $this->assertArrayHasKey(6, $endpoints);
-        $this->assertArrayHasKey(7, $endpoints);
-        $this->assertArrayHasKey(8, $endpoints);
-        $this->assertEquals($endpoints[0], 'changeSettings');
-        $this->assertEquals($endpoints[1], 'delete');
-        $this->assertEquals($endpoints[2], 'getConversionStatus');
-        $this->assertEquals($endpoints[3], 'getDownloadUrl');
-        $this->assertEquals($endpoints[4], 'getList');
-        $this->assertEquals($endpoints[5], 'getSettings');
-        $this->assertEquals($endpoints[6], 'search');
-        $this->assertEquals($endpoints[7], 'upload');
-        $this->assertEquals($endpoints[8], 'uploadFromUrl');
+        $this->assertEquals(12, count($endpoints));
+        $this->assertEquals($endpoints[0], 'browse');
+        $this->assertEquals($endpoints[1], 'changeSettings');
+        $this->assertEquals($endpoints[2], 'delete');
+        $this->assertEquals($endpoints[3], 'getCategories');
+        $this->assertEquals($endpoints[4], 'getConversionStatus');
+        $this->assertEquals($endpoints[5], 'getDownloadUrl');
+        $this->assertEquals($endpoints[6], 'getList');
+        $this->assertEquals($endpoints[7], 'getSettings');
+        $this->assertEquals($endpoints[8], 'search');
+        $this->assertEquals($endpoints[9], 'upload');
+        $this->assertEquals($endpoints[10], 'uploadFromUrl');
+    }
+
+    public function testGetCategories()
+    {
+        $expectedResponse = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok">
+    <result_set>
+        <result>
+            <id>86</id>
+            <name><![CDATA[Art & Design]]></name>
+            <subcategories>
+                <subcategory>
+                    <id>241</id>
+                    <name><![CDATA[Maps]]></name>
+                </subcategory>
+                <subcategory>
+                    <id>231</id>
+                    <name><![CDATA[Origami]]></name>
+                </subcategory>
+            </subcategories>
+        </result>
+        <result>
+            <id>242</id>
+            <name><![CDATA[Comics]]></name>
+            <subcategories/>
+        </result>
+        <result>
+            <id>243</id>
+            <name><![CDATA[Reviews]]></name>
+            <subcategories>
+                <subcategory>
+                    <id>246</id>
+                    <name><![CDATA[Art]]></name>
+                </subcategory>
+            </subcategories>
+        </result>
+    </result_set>
+</rsp>
+XML;
+        $this->setHTTPResponse($expectedResponse);
+        $response = $this->scribd->getCategories();
+
+        $this->assertInstanceOf('SimpleXMLElement', $response);
+        $this->assertEquals(3, count($response->result));
+        $this->assertEquals(86, (int) $response->result[0]->id);
+        $this->assertEquals('Art & Design', (string) $response->result[0]->name);
+        $this->assertEquals(2, count($response->result[0]->subcategories->subcategory));
+        $this->assertEquals(241, (int) $response->result[0]->subcategories->subcategory[0]->id);
+        $this->assertEquals('Maps', $response->result[0]->subcategories->subcategory[0]->name);
+        $this->assertEquals(242, (int) $response->result[1]->id);
+        $this->assertEquals('Comics', (string) $response->result[1]->name);
+        $this->assertEquals(0, count($response->result[1]->subcategories->subcategory));
+    }
+
+    public function testGetCategoriesWithoutSubcategories()
+    {
+        $expectedResponse = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok">
+    <result_set>
+        <result>
+            <id>86</id>
+            <name><![CDATA[Art & Design]]></name>
+        </result>
+        <result>
+            <id>242</id>
+            <name><![CDATA[Comics]]></name>
+        </result>
+    </result_set>
+</rsp>
+XML;
+        $this->setHTTPResponse($expectedResponse);
+        $response = $this->scribd->getCategories(null, false);
+
+        $this->assertInstanceOf('SimpleXMLElement', $response);
+        $this->assertEquals(2, count($response->result));
+        $this->assertEquals(86, (int) $response->result[0]->id);
+        $this->assertEquals('Art & Design', (string) $response->result[0]->name);
+        $this->assertEquals(242, (int) $response->result[1]->id);
     }
 
     public function testChangeSettings()
