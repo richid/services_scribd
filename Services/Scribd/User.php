@@ -30,7 +30,7 @@ require_once 'Services/Scribd/Common.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher <rich.schu@gmail.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @link      http://www.scribd.com/publisher/api
+ * @link      http://www.scribd.com/developers/platform
  */
 class Services_Scribd_User extends Services_Scribd_Common
 {
@@ -51,7 +51,7 @@ class Services_Scribd_User extends Services_Scribd_Common
      *
      * @param string $redirectUrl The URL to redirect to after logging in
      *
-     * @link http://www.scribd.com/publisher/api?method_name=user.login
+     * @link http://www.scribd.com/developers/platform/api/user_getautosigninurl
      * @return string
      */
     public function getAutoSigninUrl($redirectUrl = '/')
@@ -69,7 +69,7 @@ class Services_Scribd_User extends Services_Scribd_Common
      * @param string $username The username or email address to login with
      * @param string $password Password of the account
      *
-     * @link http://www.scribd.com/publisher/api?method_name=user.login
+     * @link http://www.scribd.com/developers/platform/api/user_login
      * @return SimpleXMLElement
      */
     public function login($username, $password)
@@ -92,6 +92,7 @@ class Services_Scribd_User extends Services_Scribd_Common
      * @param string $email    Email to use for this account
      * @param string $name     The user's name
      *
+     * @link http://www.scribd.com/developers/platform/api/user_signup
      * @return SimpleXMLElement
      */
     public function signup($username, $password, $email = null, $name = null)

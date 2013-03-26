@@ -31,7 +31,7 @@ require_once 'Services/Scribd/Common.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher <rich.schu@gmail.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @link      http://www.scribd.com/publisher/api
+ * @link      http://www.scribd.com/developers/platform
  */
 class Services_Scribd_Docs extends Services_Scribd_Common
 {
@@ -100,7 +100,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @param array $docIds   Array of document ids to modify
      * @param array $settings Associative array of values to use
      *
-     * @link http://www.scribd.com/publisher/api?method_name=docs.changeSettings
+     * @link http://www.scribd.com/developers/platform/api/docs_changesettings
      * @see Services_Scribd_Common::call()
      * @return true
      */
@@ -131,8 +131,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments            = $settings;
         $this->arguments['doc_ids'] = $docIds;
 
-        $response = $this->call('docs.changeSettings',
-                                HTTP_Request2::METHOD_POST);
+        $response = $this->call('docs.changeSettings', HTTP_Request2::METHOD_POST);
 
         return true;
     }
@@ -142,7 +141,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      *
      * @param integer $docId The id of the document to delete
      *
-     * @link http://www.scribd.com/publisher/api?method_name=docs.delete
+     * @link http://www.scribd.com/developers/platform/api/docs_delete
      * @see Services_Scribd_Common::call()
      * @return true
      */
@@ -160,7 +159,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      *
      * @param integer $docId The id of document to check
      *
-     * @link http://www.scribd.com/publisher/api?method_name=docs.getConversionStatus
+     * @link http://www.scribd.com/developers/platform/api/docs_getconversionstatus
      * @return string
      */
     public function getConversionStatus($docId)
@@ -178,7 +177,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @param integer $docId   The id of the document
      * @param string  $docType The format of the document
      *
-     * @link http://www.scribd.com/publisher/api?method_name=docs.getDownloadUrl
+     * @link http://www.scribd.com/developers/platform/api/docs_getdownloadurl
      * @throws Services_Scribd_Exception
      * @return string
      */
@@ -206,7 +205,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @param boolean $useAPIAccount Show documents associated with the API
      * account, rather the Scribd user account
      *
-     * @link http://www.scribd.com/publisher/api?method_name=docs.getList
+     * @link http://www.scribd.com/developers/platform/api/docs_getlist
      * @return array
      */
     public function getList($limit = 10, $offset = 0, $useAPIAccount = false)
@@ -226,7 +225,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      *
      * @param integer $docId The id of the document
      *
-     * @link http://www.scribd.com/publisher/api?method_name=docs.getSettings
+     * @link http://www.scribd.com/developers/platform/api/docs_getsettings
      * @return SimpleXMLElement
      */
     public function getSettings($docId)
@@ -245,7 +244,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @param integer $limit  The max number of results to return
      * @param integer $offset The number to start at
      *
-     * @link http://www.scribd.com/publisher/api?method_name=docs.search
+     * @link http://www.scribd.com/developers/platform/api/docs_search
      * @throws Services_Scribd_Exception
      * @return array
      */
@@ -292,13 +291,13 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @param integer $paidContent Is this paid content? {0,1}
      * @param integer $revisionId  The document id we are revising
      *
-     * @link http://www.scribd.com/publisher/api?method_name=docs.upload
+     * @link http://www.scribd.com/developers/platform/api/docs_upload
      * @throws Services_Scribd_Exception
      * @return SimpleXMLElement
      */
     public function upload($filepath, $docType, $access = 'public',
-                           $paidContent = 0, $revisionId = null)
-    {
+        $paidContent = 0, $revisionId = null
+    ) {
         if (!in_array($docType, $this->_validUploadDocTypes)) {
             throw new Services_Scribd_Exception(
                 'Invalid document type requested: ' . $docType
@@ -333,13 +332,13 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @param integer $paidContent Is this paid content? {0,1}
      * @param integer $revisionId  The document id we are revising
      *
-     * @link http://www.scribd.com/publisher/api?method_name=docs.uploadFromUrl
+     * @link http://www.scribd.com/developers/platform/api/docs_uploadfromurl
      * @throws Services_Scribd_Exception
      * @return SimpleXMLElement
      */
     public function uploadFromUrl($url, $docType, $access = 'public',
-                                  $paidContent = 0, $revisionId = null)
-    {
+        $paidContent = 0, $revisionId = null
+    ) {
         if (!in_array($docType, $this->_validUploadDocTypes)) {
             throw new Services_Scribd_Exception(
                 'Invalid document type requested: ' . $docType
@@ -352,8 +351,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments['paid_content'] = $paidContent;
         $this->arguments['rev_id']       = $revisionId;
 
-        $response = $this->call('docs.uploadFromUrl',
-                                HTTP_Request2::METHOD_POST);
+        $response = $this->call('docs.uploadFromUrl', HTTP_Request2::METHOD_POST);
     
         unset($response['stat']);
 

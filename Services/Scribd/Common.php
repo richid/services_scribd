@@ -31,7 +31,7 @@ require_once 'HTTP/Request2.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher <rich.schu@gmail.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @link      http://www.scribd.com/publisher/api
+ * @link      http://www.scribd.com/developers/platform
  */
 class Services_Scribd_Common extends Services_Scribd
 {
@@ -60,7 +60,6 @@ class Services_Scribd_Common extends Services_Scribd
      * An array of arguments that we must skip when calculating the API
      * signature
      *
-     * @link http://www.scribd.com/publisher/api?method_name=Signing
      * @var array
      */
     private $_skipSignatureArguments = array(
@@ -132,7 +131,8 @@ class Services_Scribd_Common extends Services_Scribd
     protected function call($endpoint, $method = HTTP_Request2::METHOD_GET)
     {
         if ($method !== HTTP_Request2::METHOD_GET
-            && $method !== HTTP_Request2::METHOD_POST) {
+            && $method !== HTTP_Request2::METHOD_POST
+        ) {
             throw new Services_Scribd_Exception('Invalid HTTP method: ' . $method);
         }
 
@@ -250,7 +250,7 @@ class Services_Scribd_Common extends Services_Scribd
      * Generates an API signature if the Services_Scribd::$apiSecret variable
      * has been set to help protect against evesdropping attacks.
      *
-     * @link http://www.scribd.com/publisher/api?method_name=Signing
+     * @link http://www.scribd.com/developers/platform#signing
      * @see Services_Scribd::$apiSecret
      * @return void
      */

@@ -29,7 +29,7 @@ require_once 'PEAR/Exception.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher <rich.schu@gmail.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @link      http://www.scribd.com/publisher/api
+ * @link      http://www.scribd.com/developers/platform
  */
 class Services_Scribd_Exception extends PEAR_Exception
 {
