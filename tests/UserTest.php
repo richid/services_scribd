@@ -8,7 +8,7 @@ class Services_Scribd_UserTest extends Services_Scribd_CommonTest
     {
         $endpoints = $this->scribd->getAvailableEndpoints();
 
-        $this->assertType('array', $endpoints);
+        $this->assertInternalType('array', $endpoints);
         $this->assertArrayHasKey(0, $endpoints);
         $this->assertArrayHasKey(1, $endpoints);
         $this->assertArrayHasKey(2, $endpoints);
@@ -31,7 +31,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->getAutoSigninUrl();
 
-        $this->assertType('string', $response);
+        $this->assertInternalType('string', $response);
         $this->assertEquals('http://www.scribd.com/login/auto_login/999?hash=1a1d&next_url=%2F', $response);
     }
 
@@ -50,7 +50,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->login('richid-test', 'pass');
 
-        $this->assertType('SimpleXMLElement', $response);
+        $this->assertInstanceOf('SimpleXMLElement', $response);
         $this->assertEquals('sess1', (string) $response->session_key);
         $this->assertEquals('9184', (string) $response->user_id);
         $this->assertEquals('richid-test', (string) $response->username);
@@ -72,7 +72,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->signup('richid-test2', 'pass', 'rich@email.com');
 
-        $this->assertType('SimpleXMLElement', $response);
+        $this->assertInstanceOf('SimpleXMLElement', $response);
         $this->assertEquals('sess1', (string) $response->session_key);
         $this->assertEquals('1014', (string) $response->user_id);
         $this->assertEquals('richid-test2', (string) $response->username);

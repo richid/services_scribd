@@ -53,11 +53,12 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     );
 
     /**
-     * Document types that are supported by Scribd
+     * Supported document formats for uploading
      *
+     * @link http://www.scribd.com/developers/platform/api/docs_upload
      * @var array
      */
-    private $_validDocTypes = array(
+    private $_validUploadDocTypes = array(
         'pdf',
         'txt',
         'ps',
@@ -83,6 +84,15 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         'tif',
         'tiff'
     );
+
+    /**
+     * Supported document formats for downloading
+     *
+     * @link http://www.scribd.com/developers/platform/api/docs_getdownloadurl
+     * @var array
+     */
+    private $_validDownloadDocTypes = array('pdf', 'txt', 'original');
+
 
     /**
      * Changes metadata for one or many documents
@@ -174,7 +184,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      */
     public function getDownloadUrl($docId, $docType = 'original')
     {
-        if (!in_array($docType, $this->_validDocTypes)) {
+        if (!in_array($docType, $this->_validDownloadDocTypes)) {
             throw new Services_Scribd_Exception(
                 'Invalid document type requested: ' . $docType
             );
@@ -289,7 +299,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     public function upload($filepath, $docType, $access = 'public',
                            $paidContent = 0, $revisionId = null)
     {
-        if (!in_array($docType, $this->_validDocTypes)) {
+        if (!in_array($docType, $this->_validUploadDocTypes)) {
             throw new Services_Scribd_Exception(
                 'Invalid document type requested: ' . $docType
             );
@@ -330,7 +340,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     public function uploadFromUrl($url, $docType, $access = 'public',
                                   $paidContent = 0, $revisionId = null)
     {
-        if (!in_array($docType, $this->_validDocTypes)) {
+        if (!in_array($docType, $this->_validUploadDocTypes)) {
             throw new Services_Scribd_Exception(
                 'Invalid document type requested: ' . $docType
             );

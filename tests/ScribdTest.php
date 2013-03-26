@@ -15,7 +15,7 @@ class Services_Scribd_ScribdTest extends PHPUnit_Framework_TestCase
     {
         $account = $this->scribd->getAccount();
 
-        $this->assertType('Services_Scribd', $this->scribd);
+        $this->assertInstanceOf('Services_Scribd', $this->scribd);
         $this->assertEquals('key', $account->apiKey);
         $this->assertEquals('secret', $account->apiSecret);
     }
@@ -26,16 +26,16 @@ class Services_Scribd_ScribdTest extends PHPUnit_Framework_TestCase
         $scribd  = new Services_Scribd($account);
         $account = $scribd->getAccount();
 
-        $this->assertType('Services_Scribd', $scribd);
+        $this->assertInstanceOf('Services_Scribd', $scribd);
         $this->assertEquals('key', $account->apiKey);
         $this->assertEquals('secret', $account->apiSecret);
     }
 
     public function testValidDriver()
     {
-        $this->assertType('Services_Scribd', $this->scribd->docs);
-        $this->assertType('Services_Scribd_Common', $this->scribd->docs);
-        $this->assertType('Services_Scribd_Docs', $this->scribd->docs);
+        $this->assertInstanceOf('Services_Scribd', $this->scribd->docs);
+        $this->assertInstanceOf('Services_Scribd_Common', $this->scribd->docs);
+        $this->assertInstanceOf('Services_Scribd_Docs', $this->scribd->docs);
     }
 
     public function testInvalidDriver()

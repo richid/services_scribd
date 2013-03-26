@@ -8,7 +8,7 @@ class Services_Scribd_DocsTest extends Services_Scribd_CommonTest
     {
         $endpoints = $this->scribd->getAvailableEndpoints();
 
-        $this->assertType('array', $endpoints);
+        $this->assertInternalType('array', $endpoints);
         $this->assertArrayHasKey(0, $endpoints);
         $this->assertArrayHasKey(1, $endpoints);
         $this->assertArrayHasKey(2, $endpoints);
@@ -50,7 +50,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->changeSettings($ids, $settings);
 
-        $this->assertType('bool', $response);
+        $this->assertInternalType('bool', $response);
         $this->assertEquals(true, $response);
     }
 
@@ -65,7 +65,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->delete(1234);
 
-        $this->assertType('bool', $response);
+        $this->assertInternalType('bool', $response);
         $this->assertEquals(true, $response);
     }
 
@@ -81,7 +81,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->getConversionStatus(1234);
 
-        $this->assertType('string', $response);
+        $this->assertInternalType('string', $response);
         $this->assertEquals('DONE', $response);
     }
 
@@ -99,7 +99,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->getDownloadUrl(1234);
 
-        $this->assertType('string', $response);
+        $this->assertInternalType('string', $response);
         $this->assertEquals('http://d.scribd.com/docs/57vnwv49p43zcz.pdf',
                             $response);
     }
@@ -140,7 +140,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->getList();
 
-        $this->assertType('SimpleXMLElement', $response);
+        $this->assertInstanceOf('SimpleXMLElement', $response);
         $this->assertEquals(11627281, (string) $response->doc_id);
         $this->assertEquals('key', (string) $response->access_key);
         $this->assertEquals('secret', (string) $response->secret_password);
@@ -186,7 +186,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->getSettings(1234);
     
-        $this->assertType('SimpleXMLElement', $response);
+        $this->assertInstanceOf('SimpleXMLElement', $response);
         $this->assertEquals(1234, (string) $response->doc_id);
         $this->assertEquals('title', trim((string) $response->title));
         $this->assertEquals('desc', trim((string) $response->description));
@@ -250,7 +250,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->search('test');
 
-        $this->assertType('array', $response);
+        $this->assertInternalType('array', $response);
         $this->assertArrayHasKey('totalResultsAvailable', $response);
         $this->assertArrayHasKey('totalResultsReturned', $response);
         $this->assertArrayHasKey('firstResultPosition', $response);
@@ -259,11 +259,11 @@ XML;
         $this->assertEquals(3, $response['totalResultsAvailable']);
         $this->assertEquals(2, $response['totalResultsReturned']);
         $this->assertEquals(2, $response['firstResultPosition']);
-        $this->assertEquals(true, $response['list']);
+        $this->assertEquals('true', $response['list']);
         $this->assertArrayHasKey(0, $response['results']);
         $this->assertArrayHasKey(1, $response['results']);
-        $this->assertType('SimpleXMLElement', $response['results'][0]);
-        $this->assertType('SimpleXMLElement', $response['results'][1]);
+        $this->assertInstanceOf('SimpleXMLElement', $response['results'][0]);
+        $this->assertInstanceOf('SimpleXMLElement', $response['results'][1]);
         $this->assertEquals(1234, (string) $response['results'][0]->doc_id);
         $this->assertEquals('title1', trim((string) $response['results'][0]->title));
         $this->assertEquals('desc1', trim((string) $response['results'][0]->description));
@@ -305,7 +305,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->upload(__FILE__, 'txt');
         
-        $this->assertType('SimpleXMLElement', $response);
+        $this->assertInstanceOf('SimpleXMLElement', $response);
         $this->assertEquals('1376', (string) $response->doc_id);
         $this->assertEquals('key1', (string) $response->access_key);
     }
@@ -339,7 +339,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->uploadFromUrl('http://d.scribd.com/docs/5xttn3dmcm0gkxshomn.txt', 'txt');
         
-        $this->assertType('SimpleXMLElement', $response);
+        $this->assertInstanceOf('SimpleXMLElement', $response);
         $this->assertEquals('1223', (string) $response->doc_id);
         $this->assertEquals('key1', (string) $response->access_key);
     }
@@ -410,7 +410,7 @@ XML;
         $this->setHTTPResponse($expectedResponse);
         $response = $this->scribd->delete(1234);
 
-        $this->assertType('bool', $response);
+        $this->assertInternalType('bool', $response);
         $this->assertEquals(true, $response);
     }
 }
