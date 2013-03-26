@@ -49,7 +49,8 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         'getSettings',
         'search',
         'upload',
-        'uploadFromUrl'
+        'uploadFromUrl',
+        'uploadThumb',
     );
 
     /**
@@ -356,6 +357,34 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         unset($response['stat']);
 
         return $response;
+    }
+
+    /**
+     * XXX: This doesn't appear to be working; throwing 500's consistently.
+     *
+     * Uploads a thumbnail for a document
+     *
+     * @param string $filepath A path to the thumbnail we want to upload
+     * @param string $docId    The id of the document
+     *
+     * @link http://www.scribd.com/developers/platform/api/docs_uploadthumb
+     * @throws Services_Scribd_Exception
+     * @return boolean
+     */
+    public function uploadThumb($filepath, $docId)
+    {
+        if (!file_exists($filepath)) {
+            throw new Services_Scribd_Exception(
+                'The selected file was not found'
+            );
+        }
+
+        $this->arguments['file']   = $filepath;
+        $this->arguments['doc_id'] = $docId;
+
+        $response = $this->call('docs.uploadThumb', HTTP_Request2::METHOD_POST);
+
+        return (string) $response['stat'] == "ok";
     }
 }
 

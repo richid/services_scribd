@@ -353,6 +353,29 @@ XML;
                                      'invalid');
     }
 
+    public function testUploadThumb()
+    {
+        $expectedResponse = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok">
+</rsp>
+XML;
+
+        $this->setHTTPResponse($expectedResponse);
+        $response = $this->scribd->uploadThumb(__FILE__, 1234);
+
+        $this->assertInternalType('bool', $response);
+        $this->assertTrue($response);
+    }
+
+    public function testUploadThumbInvalidFile()
+    {
+        $this->setExpectedException('Services_Scribd_Exception',
+                                    'The selected file was not found');
+
+        $this->scribd->uploadThumb('./file-that-does-not-exist', 'txt');
+    }
+
     public function testMalformedXMLResponse()
     {
         $expectedResponse = <<<XML
