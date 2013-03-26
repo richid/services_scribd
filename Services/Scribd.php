@@ -88,6 +88,7 @@ class Services_Scribd
      */
     private $_validDrivers = array(
         'docs',
+        'thumbnail',
         'user',
         'empty'
     );
