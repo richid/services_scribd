@@ -62,30 +62,10 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @var array
      */
     private $_validUploadDocTypes = array(
-        'pdf',
-        'txt',
-        'ps',
-        'rtf',
-        'epub',
-        'odt',
-        'odp',
-        'ods',
-        'odg',
-        'odf',
-        'sxw',
-        'sxc',
-        'sxi',
-        'sxd',
-        'doc',
-        'ppt',
-        'pps',
-        'xls',
-        'docx',
-        'pptx',
-        'ppsx',
-        'xlsx',
-        'tif',
-        'tiff'
+        'pdf', 'txt', 'ps', 'rtf', 'epub', 'odt',
+        'odp', 'ods', 'odg', 'odf', 'sxw', 'sxc',
+        'sxi', 'sxd', 'doc', 'ppt', 'pps', 'xls',
+        'docx', 'pptx', 'ppsx', 'xlsx', 'tif', 'tiff'
     );
 
     /**
@@ -107,8 +87,9 @@ class Services_Scribd_Docs extends Services_Scribd_Common
      * @link http://www.scribd.com/developers/platform/api/docs_browse
      * @return SimpleXMLElement
      */
-    public function browse($limit = 20, $offset = 1, $categoryId = null, $sort = 'popular')
-    {
+    public function browse($limit = 20, $offset = 1, $categoryId = null,
+        $sort = 'popular'
+    ) {
         $this->arguments['offset'] = $offset;
         $this->arguments['limit']  = $limit;
         $this->arguments['sort']   = $sort;
