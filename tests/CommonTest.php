@@ -32,6 +32,12 @@ abstract class Services_Scribd_CommonTest extends PHPUnit_Framework_TestCase
         $this->adapter->addResponse($response);
     }
 
+    public function setExceptionResponse($message = null)
+    {
+        $response = new HTTP_Request2_Exception($message);
+        $this->adapter->addResponse($response);
+    }
+
     public function tearDown()
     {
         unset($this->scribd);

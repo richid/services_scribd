@@ -55,6 +55,17 @@ class Services_Scribd_Dummy extends Services_Scribd_Common
         $this->arguments['api_sig'] = 'omg';
         return $this->call('dummy.no');
     }
+
+    /**
+     * Used for testing Services_Scribd_Common::sendRequest()
+     *
+     * @return void
+     */
+    public function sendRequestThrowsException()
+    {
+        $this->call('throw');
+        return null; // Need this for code coverage, blah.
+    }
 }
 
 ?>
