@@ -9,18 +9,19 @@ class Services_Scribd_DocsTest extends Services_Scribd_CommonTest
         $endpoints = $this->scribd->getAvailableEndpoints();
 
         $this->assertInternalType('array', $endpoints);
-        $this->assertEquals(12, count($endpoints));
-        $this->assertEquals($endpoints[0], 'browse');
-        $this->assertEquals($endpoints[1], 'changeSettings');
-        $this->assertEquals($endpoints[2], 'delete');
-        $this->assertEquals($endpoints[3], 'getCategories');
-        $this->assertEquals($endpoints[4], 'getConversionStatus');
-        $this->assertEquals($endpoints[5], 'getDownloadUrl');
-        $this->assertEquals($endpoints[6], 'getList');
-        $this->assertEquals($endpoints[7], 'getSettings');
-        $this->assertEquals($endpoints[8], 'search');
-        $this->assertEquals($endpoints[9], 'upload');
-        $this->assertEquals($endpoints[10], 'uploadFromUrl');
+        $this->assertEquals(13, count($endpoints));
+        $this->assertTrue(in_array('browse', $endpoints));
+        $this->assertTrue(in_array('changeSettings', $endpoints));
+        $this->assertTrue(in_array('delete', $endpoints));
+        $this->assertTrue(in_array('featured', $endpoints));
+        $this->assertTrue(in_array('getCategories', $endpoints));
+        $this->assertTrue(in_array('getConversionStatus', $endpoints));
+        $this->assertTrue(in_array('getDownloadUrl', $endpoints));
+        $this->assertTrue(in_array('getList', $endpoints));
+        $this->assertTrue(in_array('getSettings', $endpoints));
+        $this->assertTrue(in_array('search', $endpoints));
+        $this->assertTrue(in_array('upload', $endpoints));
+        $this->assertTrue(in_array('uploadFromUrl', $endpoints));
     }
 
     public function testBrowse()
@@ -58,6 +59,43 @@ XML;
         $this->assertEquals('by-nc', $response->result->license);
         $this->assertEquals(129907, (int) $response->result->reads);
         $this->assertEquals('2012-11-03T22:27:14+00:00', $response->result->when_uploaded);
+    }
+
+    public function testFeatured()
+    {
+        $expectedResponse = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok">
+    <result_set totalResultsAvailable="11233" totalResultsReturned="20" firstResultPosition="1" list="true">
+        <result>
+            <doc_id>127126759</doc_id>
+            <access_key>key-1cv4k40hbx4irwxyhoo2</access_key>
+            <title><![CDATA[The Invention of World Religions: Or, How European Universalism Was Preserved in the Language of Pluralism]]></title>
+            <description><![CDATA[]]></description>
+            <tags><![CDATA[religion.,religions.,europe  religion.,universalism.,europe  religion  history.]]></tags>
+            <license>c</license>
+            <thumbnail_url>http://imgv2-2.scribdassets.com/img/word_document/127126759/111x142/ff642c988d/1361781233</thumbnail_url>
+            <page_count>377</page_count>
+            <download_formats></download_formats>
+            <price>25.0</price>
+            <reads>1614</reads>
+            <uploaded_by><![CDATA[UChicagoPress]]></uploaded_by>
+            <uploader_id>11693806</uploader_id>
+            <when_uploaded>2013-02-25T08:18:02+00:00</when_uploaded>
+            <when_updated>2013-03-29T22:09:55+00:00</when_updated>
+        </result>
+    </result_set>
+</rsp>
+XML;
+
+        $this->setHTTPResponse($expectedResponse);
+        $response = $this->scribd->featured();
+
+        $this->assertInstanceOf('SimpleXMLElement', $response);
+        $this->assertEquals(127126759, (int) $response->result->doc_id);
+        $this->assertEquals('c', $response->result->license);
+        $this->assertEquals(1614, (int) $response->result->reads);
+        $this->assertEquals('2013-02-25T08:18:02+00:00', $response->result->when_uploaded);
     }
 
     public function testGetCategories()

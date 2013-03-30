@@ -44,6 +44,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         'browse',
         'changeSettings',
         'delete',
+        'featured',
         'getCategories',
         'getConversionStatus',
         'getDownloadUrl',
@@ -159,6 +160,27 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->call('docs.delete', HTTP_Request2::METHOD_POST);
 
         return true;
+    }
+
+    /**
+     * Return a list of featured documents
+     *
+     * @param integer $limit  Max amount of results to return
+     * @param integer $offset Offset into the list of documents
+     * @param string  $scope  Whether to search new documents or hot only. Valid
+     * scopes are "hot" and "new".
+     *
+     * @return SimpleXMLElement
+     */
+    public function featured($limit = 20, $offset = 0, $scope = "hot")
+    {
+        $this->arguments['limit']  = $limit;
+        $this->arguments['offset'] = $offset;
+        $this->arguments['scope']  = $scope;
+
+        $response = $this->call('docs.featured', HTTP_Request2::METHOD_GET);
+
+        return $response->result_set;
     }
 
     /**
