@@ -23,6 +23,43 @@ class Services_Scribd_DocsTest extends Services_Scribd_CommonTest
         $this->assertEquals($endpoints[10], 'uploadFromUrl');
     }
 
+    public function testBrowse()
+    {
+        $expectedResponse = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok">
+    <result_set totalResultsAvailable="9109" totalResultsReturned="1" firstResultPosition="1" list="true">
+        <result>
+            <doc_id>112033847</doc_id>
+            <access_key>key-1dii4ec212x6x5sqqswn</access_key>
+            <title><![CDATA[50 things they never told you about being a chef]]></title>
+            <description><![CDATA[Uploaded from Google Docs]]></description>
+            <tags><![CDATA[]]></tags>
+            <license>by-nc</license>
+            <thumbnail_url>http://imgv2-3.scribdassets.com/img/word_document/112033847/111x142/42383c3de0/1351981884</thumbnail_url>
+            <page_count>3</page_count>
+            <download_formats>pdf,docx,txt</download_formats>
+            <reads>129907</reads>
+            <uploaded_by><![CDATA[Kloiii]]></uploaded_by>
+            <uploader_id>93600737</uploader_id>
+            <when_uploaded>2012-11-03T22:27:14+00:00</when_uploaded>
+            <when_updated>2013-03-29T21:53:13+00:00</when_updated>
+        </result>
+    </result_set>
+</rsp>
+XML;
+
+        $this->setHTTPResponse($expectedResponse);
+        $response = $this->scribd->browse(1, 1, 86);
+
+        $this->assertInstanceOf('SimpleXMLElement', $response);
+        $this->assertEquals(112033847, (int) $response->result->doc_id);
+        $this->assertEquals('50 things they never told you about being a chef', (string) $response->result->title);
+        $this->assertEquals('by-nc', $response->result->license);
+        $this->assertEquals(129907, (int) $response->result->reads);
+        $this->assertEquals('2012-11-03T22:27:14+00:00', $response->result->when_uploaded);
+    }
+
     public function testGetCategories()
     {
         $expectedResponse = <<<XML
@@ -76,31 +113,39 @@ XML;
         $this->assertEquals(0, count($response->result[1]->subcategories->subcategory));
     }
 
-    public function testGetCategoriesWithoutSubcategories()
+    public function testGetCategoriesSpecificCategory()
     {
         $expectedResponse = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rsp stat="ok">
     <result_set>
         <result>
-            <id>86</id>
-            <name><![CDATA[Art & Design]]></name>
+            <id>241</id>
+            <name><![CDATA[Maps]]></name>
+            <subcategories/>
         </result>
         <result>
-            <id>242</id>
-            <name><![CDATA[Comics]]></name>
+            <id>251</id>
+            <name><![CDATA[Sheet Music]]></name>
+            <subcategories/>
+        </result>
+        <result>
+            <id>231</id>
+            <name><![CDATA[Origami]]></name>
+            <subcategories/>
         </result>
     </result_set>
 </rsp>
 XML;
         $this->setHTTPResponse($expectedResponse);
-        $response = $this->scribd->getCategories(null, false);
+        $response = $this->scribd->getCategories(86);
 
         $this->assertInstanceOf('SimpleXMLElement', $response);
-        $this->assertEquals(2, count($response->result));
-        $this->assertEquals(86, (int) $response->result[0]->id);
-        $this->assertEquals('Art & Design', (string) $response->result[0]->name);
-        $this->assertEquals(242, (int) $response->result[1]->id);
+        $this->assertEquals(3, count($response->result));
+        $this->assertEquals(241, (int) $response->result[0]->id);
+        $this->assertEquals('Maps', $response->result[0]->name);
+        $this->assertEquals(251, (int) $response->result[1]->id);
+        $this->assertEquals('Sheet Music', $response->result[1]->name);
     }
 
     public function testChangeSettings()
