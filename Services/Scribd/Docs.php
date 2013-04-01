@@ -290,48 +290,34 @@ class Services_Scribd_Docs extends Services_Scribd_Common
     /**
      * Searches for the text string within Scribd documents
      *
-     * @param string  $query  The text to search for
-     * @param string  $scope  Whether to search all of Scribd or just the
-     * users documents
-     * @param integer $limit  The max number of results to return
-     * @param integer $offset The number to start at
+     * @param string  $query      The text to search for
+     * @param integer $limit      The max number of results to return
+     * @param integer $offset     The number to start at
+     * @param integer $categoryId Restricts search results to this category
+     * @param string  $language   Restrict search results to this language
+     * (ISO 639-1 format)
+     * @param boolean $simple     Use advanced search queries
      *
      * @link http://www.scribd.com/developers/platform/api/docs_search
      * @throws Services_Scribd_Exception
-     * @return array
+     * @return SimpleXMLElement
      */
-    public function search($query, $scope = 'user', $limit = 10, $offset = 1)
-    {
-        $validScope = array(
-            'all',
-            'user',
-            'account'
-        );
-
-        if (!in_array($scope, $validScope)) {
-            throw new Services_Scribd_Exception(
-                'Invalid scope requested: ' . $scope
-            );
-        }
+    public function search($query, $limit = 10, $offset = 1, $categoryId = null,
+        $language = null, $simple = true
+    ) {
 
         $this->arguments['query']       = $query;
-        $this->arguments['scope']       = $scope;
         $this->arguments['num_results'] = $limit;
         $this->arguments['num_start']   = $offset;
+        $this->arguments['simple']      = $simple;
 
-        $rawResponse = $this->call('docs.search');
-
-        $response['results'] = array();
-
-        foreach ($rawResponse->result_set[0]->attributes() as $key => $value) {
-            $response[$key] = (string) $value;
+        if ($categoryId !== null) {
+            $this->arguments['category_id'] = $categoryId;
         }
 
-        foreach ($rawResponse->result_set->result as $result) {
-            array_push($response['results'], $result);
-        }
+        $response = $this->call('docs.search');
 
-        return $response;
+        return $response->result_set;
     }
 
     /**

@@ -367,86 +367,58 @@ XML;
         $expectedResponse = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rsp stat="ok">
-  <result_set totalResultsAvailable="3" totalResultsReturned="2" firstResultPosition="2" list="true">
-    <result>
-      <doc_id>1234</doc_id>
-      <access_key>key1</access_key>
-      <title>
-        <![CDATA[title1]]>
-      </title>
-      <description>
-        <![CDATA[desc1]]>
-      </description>
-      <tags>
-        <![CDATA[]]>
-      </tags>
-      <license>by-nc</license>
-      <thumbnail_url>http://i.scribd.com/public/images/uploaded/11573567/beiuWP1blotH41c_thumbnail.jpeg</thumbnail_url>
-      <page_count>26</page_count>
-    </result>
-    <result>
-      <doc_id>1235</doc_id>
-      <access_key>key2</access_key>
-      <title>
-        <![CDATA[title2]]>
-      </title>
-      <description>
-        <![CDATA[desc2]]>
-      </description>
-      <tags>
-        <![CDATA[]]>
-      </tags>
-      <license>by-nc</license>
-      <thumbnail_url>http://i.scribd.com/public/images/uploaded/11574926/xXwPoumfND_thumbnail.jpeg</thumbnail_url>
-      <page_count>26</page_count>
-    </result>
-  </result_set>
+    <result_set totalResultsAvailable="324805" totalResultsReturned="2" firstResultPosition="2" list="true">
+        <result>
+            <doc_id>86589367</doc_id>
+            <access_key>key-1zh4pue8w56cpghsl2ca</access_key>
+            <title><![CDATA[beer]]></title>
+            <description><![CDATA[beer]]></description>
+            <tags><![CDATA[Beer,Ale]]></tags>
+            <license>by-nc</license>
+            <thumbnail_url>http://imgv2-1.scribdassets.com/img/word_document/86589367/111x142/71127fd85d/1355848230</thumbnail_url>
+            <page_count>6</page_count>
+            <download_formats>pdf,txt</download_formats>
+            <reads>66</reads>
+            <uploaded_by><![CDATA[matthew_priest_5]]></uploaded_by>
+            <uploader_id>131333044</uploader_id>
+            <when_uploaded>2012-03-24T19:15:17+00:00</when_uploaded>
+            <when_updated>2012-03-24T19:15:23+00:00</when_updated>
+        </result>
+        <result>
+            <doc_id>30088273</doc_id>
+            <access_key>key-rt3kk85xb0wixfob9wl</access_key>
+            <title><![CDATA[Beer]]></title>
+            <description><![CDATA[Beer ]]></description>
+            <tags><![CDATA[Beer,wine,wrapareceipe]]></tags>
+            <license>c</license>
+            <thumbnail_url>http://imgv2-2.scribdassets.com/img/word_document/30088273/111x142/4a7d70cbf3/1342028251</thumbnail_url>
+            <page_count>44</page_count>
+            <download_formats>ppt</download_formats>
+            <reads>1304</reads>
+            <uploaded_by><![CDATA[Hotelierstudy]]></uploaded_by>
+            <uploader_id>26011936</uploader_id>
+            <when_uploaded>2010-04-17T20:50:46+00:00</when_uploaded>
+            <when_updated>2013-03-30T14:50:35+00:00</when_updated>
+        </result>
+    </result_set>
 </rsp>
 XML;
 
         $this->setHTTPResponse($expectedResponse);
-        $response = $this->scribd->search('test');
+        $response = $this->scribd->search('beer', 2, 0, 2);
 
-        $this->assertInternalType('array', $response);
-        $this->assertArrayHasKey('totalResultsAvailable', $response);
-        $this->assertArrayHasKey('totalResultsReturned', $response);
-        $this->assertArrayHasKey('firstResultPosition', $response);
-        $this->assertArrayHasKey('list', $response);
-        $this->assertArrayHasKey('results', $response);
-        $this->assertEquals(3, $response['totalResultsAvailable']);
-        $this->assertEquals(2, $response['totalResultsReturned']);
-        $this->assertEquals(2, $response['firstResultPosition']);
-        $this->assertEquals('true', $response['list']);
-        $this->assertArrayHasKey(0, $response['results']);
-        $this->assertArrayHasKey(1, $response['results']);
-        $this->assertInstanceOf('SimpleXMLElement', $response['results'][0]);
-        $this->assertInstanceOf('SimpleXMLElement', $response['results'][1]);
-        $this->assertEquals(1234, (string) $response['results'][0]->doc_id);
-        $this->assertEquals('title1', trim((string) $response['results'][0]->title));
-        $this->assertEquals('desc1', trim((string) $response['results'][0]->description));
-        $this->assertEquals('by-nc', (string) $response['results'][0]->license);
-        $this->assertEquals('', trim((string) $response['results'][0]->tags));
-        $this->assertEquals('key1', (string) $response['results'][0]->access_key);
-        $this->assertEquals('http://i.scribd.com/public/images/uploaded/11573567/beiuWP1blotH41c_thumbnail.jpeg',
-                            trim((string) $response['results'][0]->thumbnail_url));
-        $this->assertEquals(26, (string) $response['results'][0]->page_count);
-        $this->assertEquals(1235, (string) $response['results'][1]->doc_id);
-        $this->assertEquals('title2', trim((string) $response['results'][1]->title));
-        $this->assertEquals('desc2', trim((string) $response['results'][1]->description));
-        $this->assertEquals('by-nc', (string) $response['results'][1]->license);
-        $this->assertEquals('', trim((string) $response['results'][1]->tags));
-        $this->assertEquals('key2', (string) $response['results'][1]->access_key);
-        $this->assertEquals('http://i.scribd.com/public/images/uploaded/11574926/xXwPoumfND_thumbnail.jpeg',
-                            trim((string) $response['results'][1]->thumbnail_url));
-        $this->assertEquals(26, (string) $response['results'][1]->page_count);
-    }
+        $this->assertInstanceOf('SimpleXMLElement', $response);
+        $this->assertEquals(86589367, (int) $response->result->doc_id);
+        $this->assertEquals('beer', $response->result->title);
+        $this->assertEquals('by-nc', $response->result->license);
+        $this->assertEquals(66, (int) $response->result->reads);
+        $this->assertEquals('2012-03-24T19:15:17+00:00', $response->result->when_uploaded);
+        $this->assertEquals(30088273, (int) $response->result[1]->doc_id);
+        $this->assertEquals('Beer', $response->result[1]->title);
+        $this->assertEquals('c', $response->result[1]->license);
+        $this->assertEquals(1304, (int) $response->result[1]->reads);
+        $this->assertEquals('2010-04-17T20:50:46+00:00', $response->result[1]->when_uploaded);
 
-    public function testSearchInvalidScope()
-    {
-        $this->setExpectedException('Services_Scribd_Exception',
-                                    'Invalid scope requested: invalid');
-
-        $this->scribd->search('test', 'invalid');
     }
 
     public function testUpload()
