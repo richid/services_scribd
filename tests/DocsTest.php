@@ -9,7 +9,7 @@ class Services_Scribd_DocsTest extends Services_Scribd_CommonTest
         $endpoints = $this->scribd->getAvailableEndpoints();
 
         $this->assertInternalType('array', $endpoints);
-        $this->assertEquals(13, count($endpoints));
+        $this->assertEquals(14, count($endpoints));
         $this->assertTrue(in_array('browse', $endpoints));
         $this->assertTrue(in_array('changeSettings', $endpoints));
         $this->assertTrue(in_array('delete', $endpoints));
@@ -19,6 +19,7 @@ class Services_Scribd_DocsTest extends Services_Scribd_CommonTest
         $this->assertTrue(in_array('getDownloadUrl', $endpoints));
         $this->assertTrue(in_array('getList', $endpoints));
         $this->assertTrue(in_array('getSettings', $endpoints));
+        $this->assertTrue(in_array('getStats', $endpoints));
         $this->assertTrue(in_array('search', $endpoints));
         $this->assertTrue(in_array('upload', $endpoints));
         $this->assertTrue(in_array('uploadFromUrl', $endpoints));
@@ -360,6 +361,22 @@ XML;
         $this->assertEquals('', (string) $response->publisher);
         $this->assertEquals('', (string) $response->when_published);
         $this->assertEquals('', (string) $response->edition);
+    }
+
+    public function testGetStats()
+    {
+        $expectedResponse = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok">
+    <reads>288</reads>
+</rsp>
+XML;
+
+        $this->setHTTPResponse($expectedResponse);
+        $response = $this->scribd->getStats(1234);
+
+        $this->assertInstanceOf('SimpleXMLElement', $response);
+        $this->assertEquals(288, (int) $response->reads);
     }
 
     public function testSearch()

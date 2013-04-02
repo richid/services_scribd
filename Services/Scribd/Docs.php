@@ -50,6 +50,7 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         'getDownloadUrl',
         'getList',
         'getSettings',
+        'getStats',
         'search',
         'upload',
         'uploadFromUrl',
@@ -285,6 +286,21 @@ class Services_Scribd_Docs extends Services_Scribd_Common
         $this->arguments['doc_id'] = $docId;
 
         return $this->call('docs.getSettings');
+    }
+
+    /**
+     * Retrieves statistics of a document
+     *
+     * @param integer $docId The id of the document
+     *
+     * @link http://www.scribd.com/developers/platform/api/docs_getstats
+     * @return SimpleXMLElement
+     */
+    public function getStats($docId)
+    {
+        $this->arguments['doc_id'] = $docId;
+
+        return $this->call('docs.getStats');
     }
 
     /**
