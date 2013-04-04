@@ -9,6 +9,7 @@ require_once 'DummyTest.php';
 require_once 'ScribdTest.php';
 require_once 'AccountTest.php';
 require_once 'ThumbnailTest.php';
+require_once 'CollectionsTest.php';
 
 class Services_Scribd_AllTests extends PHPUnit_Framework_TestSuite
 {
@@ -22,6 +23,7 @@ class Services_Scribd_AllTests extends PHPUnit_Framework_TestSuite
         $suite->addTestSuite('Services_Scribd_ScribdTest');
         $suite->addTestSuite('Services_Scribd_AccountTest');
         $suite->addTestSuite('Services_Scribd_ThumbnailTest');
+        $suite->addTestSuite('Services_Scribd_CollectionsTest');
 
         return $suite;
     }

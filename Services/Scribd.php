@@ -87,6 +87,7 @@ class Services_Scribd
      * @var array
      */
     private $_validDrivers = array(
+        'collections',
         'docs',
         'thumbnail',
         'user',
