@@ -85,4 +85,28 @@ class Services_Scribd_Collections extends Services_Scribd_Common
 
         return (int) $response->collection_id;
     }
+
+    /**
+     * Updates a new collection's name, description or privacy_type.
+     *
+     * @param integer $collectionId ID of the colleciton to use
+     * @param string $name          Name of the colleciton
+     * @param string $description   Description of the collection
+     * @param string $privacyType   Privacy setting, either 'public' or 'private'
+     *
+     * @link http://www.scribd.com/developers/platform/api/collections_update
+     * @return boolean
+     */
+    public function update($collectionId, $name = null, $description = null,
+        $privacyType = null
+    ) {
+        $this->arguments['collection_id'] = $collectionId;
+        $this->arguments['name']          = $name;
+        $this->arguments['description']   = $description;
+        $this->arguments['privacy_type']  = $privacyType;
+
+        $response = $this->call('collections.update', HTTP_Request2::METHOD_POST);
+
+        return (string) $response['stat'] == 'ok';
+    }
 }

@@ -40,9 +40,29 @@ XML;
 XML;
 
         $this->setHTTPResponse($expectedResponse);
-        $response = $this->scribd->create("my_coll", "desc", "public");
+        $response = $this->scribd->create('my_coll', 'desc', 'public');
 
         $this->assertInternalType('int', $response);
         $this->assertEquals(4214, $response);
+    }
+
+    public function testUpdate()
+    {
+        $expectedResponse = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok">
+    <collection_id>1234</collection_id>
+    <changed>
+        <description>my_desc</description>
+        <privacy_type>public</privacy_type>
+    </changed>
+</rsp>
+XML;
+
+        $this->setHTTPResponse($expectedResponse);
+        $response = $this->scribd->update(1234, null, 'desc', 'public');
+
+        $this->assertInternalType('bool', $response);
+        $this->assertTrue($response);
     }
 }
