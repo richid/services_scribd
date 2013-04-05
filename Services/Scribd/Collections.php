@@ -61,9 +61,8 @@ class Services_Scribd_Collections extends Services_Scribd_Common
         $this->arguments['collection_id'] = $collectionId;
 
         $response = $this->call('collections.addDoc', HTTP_Request2::METHOD_POST);
-        var_dump($response);
 
-        return (string) $response['stat'] == "ok";
+        return (string) $response['stat'] == 'ok';
     }
 
     /**
