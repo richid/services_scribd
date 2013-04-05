@@ -43,7 +43,10 @@ class Services_Scribd_Collections extends Services_Scribd_Common
      */
     protected $validEndpoints = array(
         'addDoc',
-        'create'
+        'create',
+        'delete',
+        'getList',
+        'update'
     );
 
     /**
@@ -104,12 +107,30 @@ class Services_Scribd_Collections extends Services_Scribd_Common
     }
 
     /**
+     * Retrieves a list of collections for a given user.
+     *
+     * @param string $privacyType Privacy sope, either 'public' or 'private'.
+     * If omitted, all document collections are returned.
+     *
+     * @link http://www.scribd.com/developers/platform/api/collections_getlist
+     * @return SimpleXMLElement
+     */
+    public function getList($privacyType = null)
+    {
+        $this->arguments['scope'] = $privacyType;
+
+        $response = $this->call('collections.getList', HTTP_Request2::METHOD_GET);
+
+        return $response->resultset;
+    }
+
+    /**
      * Updates a new collection's name, description or privacy_type.
      *
      * @param integer $collectionId ID of the colleciton to update
-     * @param string $name          Name of the collection
-     * @param string $description   Description of the collection
-     * @param string $privacyType   Privacy setting, either 'public' or 'private'
+     * @param string  $name         Name of the collection
+     * @param string  $description  Description of the collection
+     * @param string  $privacyType  Privacy setting, either 'public' or 'private'
      *
      * @link http://www.scribd.com/developers/platform/api/collections_update
      * @return boolean
