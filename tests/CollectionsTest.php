@@ -46,6 +46,20 @@ XML;
         $this->assertEquals(4214, $response);
     }
 
+    public function testDelete()
+    {
+        $expectedResponse = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok"></rsp>
+XML;
+
+        $this->setHTTPResponse($expectedResponse);
+        $response = $this->scribd->delete(1234);
+
+        $this->assertInternalType('bool', $response);
+        $this->assertTrue($response);
+    }
+
     public function testUpdate()
     {
         $expectedResponse = <<<XML
@@ -60,7 +74,7 @@ XML;
 XML;
 
         $this->setHTTPResponse($expectedResponse);
-        $response = $this->scribd->update(1234, null, 'desc', 'public');
+        $response = $this->scribd->update(1234, null, 'my_desc', 'public');
 
         $this->assertInternalType('bool', $response);
         $this->assertTrue($response);

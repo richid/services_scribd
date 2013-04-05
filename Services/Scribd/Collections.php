@@ -50,7 +50,7 @@ class Services_Scribd_Collections extends Services_Scribd_Common
      * Adds a document to an existing collection.
      *
      * @param integer $docId        ID of the document to add
-     * @param integer $collectionId ID of the colleciton to use
+     * @param integer $collectionId ID of the collection to add to
      *
      * @link http://www.scribd.com/developers/platform/api/collections_adddoc
      * @return boolean
@@ -68,7 +68,7 @@ class Services_Scribd_Collections extends Services_Scribd_Common
     /**
      * Creates a new collection.
      *
-     * @param string $name        Name of the colleciton
+     * @param string $name        Name of the collection
      * @param string $description Description of the collection
      * @param string $privacyType Privacy setting, either 'public' or 'private'
      *
@@ -87,10 +87,27 @@ class Services_Scribd_Collections extends Services_Scribd_Common
     }
 
     /**
+     * Deletes a collection.
+     *
+     * @param integer $collectionId ID of the colleciton to update
+     *
+     * @link http://www.scribd.com/developers/platform/api/collections_delete
+     * @return boolean
+     */
+    public function delete($collectionId)
+    {
+        $this->arguments['collection_id'] = $collectionId;
+
+        $response = $this->call('collections.delete', HTTP_Request2::METHOD_POST);
+
+        return (string) $response['stat'] == 'ok';
+    }
+
+    /**
      * Updates a new collection's name, description or privacy_type.
      *
-     * @param integer $collectionId ID of the colleciton to use
-     * @param string $name          Name of the colleciton
+     * @param integer $collectionId ID of the colleciton to update
+     * @param string $name          Name of the collection
      * @param string $description   Description of the collection
      * @param string $privacyType   Privacy setting, either 'public' or 'private'
      *
