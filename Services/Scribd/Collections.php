@@ -46,6 +46,8 @@ class Services_Scribd_Collections extends Services_Scribd_Common
         'create',
         'delete',
         'getList',
+        'listDocs',
+        'removeDoc',
         'update'
     );
 
@@ -122,6 +124,46 @@ class Services_Scribd_Collections extends Services_Scribd_Common
         $response = $this->call('collections.getList', HTTP_Request2::METHOD_GET);
 
         return $response->resultset;
+    }
+
+    /**
+     * Retrieves a list of documents in a given collection.
+     *
+     * @param integer $collectionId ID of the collection to add to
+     * @param integer $limit        Max number of documents to return
+     * @param integer $offset       Offset into the list of documents
+     *
+     * @link http://www.scribd.com/developers/platform/api/collections_listdocs
+     * @return SimpleXMLElement
+     */
+    public function listDocs($collectionId, $limit = null, $offset = null)
+    {
+        $this->arguments['collection_id'] = $collectionId;
+        $this->arguments['limit']         = $limit;
+        $this->arguments['offset']        = $offset;
+
+        $response = $this->call('collections.listDocs', HTTP_Request2::METHOD_GET);
+
+        return $response->result_set;
+    }
+
+    /**
+     * Removes a document to an existing collection.
+     *
+     * @param integer $docId        ID of the document to add
+     * @param integer $collectionId ID of the collection to add to
+     *
+     * @link http://www.scribd.com/developers/platform/api/collections_removedoc
+     * @return boolean
+     */
+    public function removeDoc($docId, $collectionId)
+    {
+        $this->arguments['doc_id']        = $docId;
+        $this->arguments['collection_id'] = $collectionId;
+
+        $response = $this->call('collections.removeDoc', HTTP_Request2::METHOD_POST);
+
+        return (string) $response['stat'] == 'ok';
     }
 
     /**
