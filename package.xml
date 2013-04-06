@@ -3,14 +3,14 @@
  <name>Services_Scribd</name>
  <channel>pear.php.net</channel>
  <summary>Interface for Scribd&apos;s public API.</summary>
- <description>Services_Scribd is an interface to communicate with Scribd&apos;s REST-based public API. The Scribd API gives consumers the ability to upload, convert, modify, delete, and search within documents.</description>
+ <description>Services_Scribd is an interface to communicate with Scribd&apos;s public API. The Scribd API gives consumers the ability to upload, convert, modify, delete, and search within documents.</description>
  <lead>
   <name>Rich Schumacher</name>
   <user>richid</user>
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2013-03-24</date>
+ <date>2013-04-07</date>
  <time>12:10:00</time>
  <version>
   <release>0.2.0</release>
@@ -26,50 +26,56 @@ Fixed a bug where the &apos;file&apos; POST param wasn&apos;t being unset before
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="aab48c4bc5f7b53ccedf9b0d701b093b" name="Services/Scribd.php" role="php">
+   <file baseinstalldir="/" md5sum="65c6155495b671860f2486184c8004ab" name="Services/Scribd.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="eaa0155cddace1e8c9d0ec947bd27690" name="Services/Scribd/Account.php" role="php">
+   <file baseinstalldir="/" md5sum="791397f487ad12bfaf136d3fd67fb183" name="Services/Scribd/Account.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="4c31e90d3966afd3f690334c250f8bba" name="Services/Scribd/Common.php" role="php">
+   <file baseinstalldir="/" md5sum="e67ac4ab3c01404e2f015075751a1e9f" name="Services/Scribd/Collections.php" role="php">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="0f1d7f2a50cb3f5a2f63bf82b648ecbc" name="Services/Scribd/Common.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
     <tasks:replace from="@package-name@" to="name" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="70344f564406a2fe04727d16402e3c8e" name="Services/Scribd/Docs.php" role="php">
+   <file baseinstalldir="/" md5sum="0127368cf663f7c94eadd89d2ab29e38" name="Services/Scribd/Docs.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="110c47f3337ae94808702de05d8ca49b" name="Services/Scribd/Dummy.php" role="php">
+   <file baseinstalldir="/" md5sum="f25c17faeb01698dd50f60c79f1acc71" name="Services/Scribd/Dummy.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
    <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="Services/Scribd/Empty.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="6ee6217fc0e88b5298a230a7010bc4e1" name="Services/Scribd/Exception.php" role="php">
+   <file baseinstalldir="/" md5sum="a7a0a80bde62532e40af0736986e1c36" name="Services/Scribd/Exception.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="cf4bdeaffc053156551e24f98badcd52" name="Services/Scribd/User.php" role="php">
+   <file baseinstalldir="/" md5sum="bb9f73234912cade95ce96083a1c12eb" name="Services/Scribd/Thumbnail.php" role="php">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="051a180592da9546c7cfaa6779139701" name="Services/Scribd/User.php" role="php">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
    <file baseinstalldir="/" md5sum="b7bb13a3c479bca05281b7870158a8b3" name="tests/AccountTest.php" role="test">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="c75c4d9afcdbffd0e883dc9be5a3ea09" name="tests/AllTests.php" role="test">
+   <file baseinstalldir="/" md5sum="57eb1c07edec4494fd075cbbcb87fe8f" name="tests/AllTests.php" role="test">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="9b0792265043e0208f036bad7cf921df" name="tests/CommonTest.php" role="test">
+   <file baseinstalldir="/" md5sum="da5ce0718ddf35a3c806925f6d108b81" name="tests/CommonTest.php" role="test">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="61432e364a5e77708b7ed75217a3c067" name="tests/DocsTest.php" role="test">
+   <file baseinstalldir="/" md5sum="1881d6b5bf4925e4fcbdf79167b8d500" name="tests/DocsTest.php" role="test">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="46a97ba039ee6ed0ae50dd35f9f75d59" name="tests/DummyTest.php" role="test">
+   <file baseinstalldir="/" md5sum="05837d9a4730ded975c3779d3f91195a" name="tests/DummyTest.php" role="test">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="105deeb3e06fc80de591ed20e9c4007e" name="tests/ScribdTest.php" role="test">
+   <file baseinstalldir="/" md5sum="a46a3292d10144d2ecea603f33658d35" name="tests/ScribdTest.php" role="test">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="/" md5sum="9209e706d0976f022a2061854dec7506" name="tests/UserTest.php" role="test">
+   <file baseinstalldir="/" md5sum="3f0085aa4179d836aa21a0e81c0593bd" name="tests/UserTest.php" role="test">
     <tasks:replace from="@package-version@" to="version" type="package-info" />
    </file>
   </dir>
@@ -106,11 +112,20 @@ Fixed a bug where the &apos;file&apos; POST param wasn&apos;t being unset before
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2013-03-24</date>
+   <date>2013-04-07</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 * Make Services_Scribd->timeout variable public for ease of configuration.
-* Update list of allowed document formats.
+* Update list of allowed document formats in Docs endpoints.
+* Added several missing Docs endpoints:
+ * uploadThumb
+ * getCategories
+ * browse
+ * featured
+ * search
+ * getStats
+* Added Thumbnail and Collections API endpoints.
+* Minor CS and unit testing improvements.
    </notes>
   </release>
   <release>
