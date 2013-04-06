@@ -10,8 +10,8 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2013-04-07</date>
- <time>12:10:00</time>
+ <date>2013-04-06</date>
+ <time>09:10:00</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -112,7 +112,7 @@ Fixed a bug where the &apos;file&apos; POST param wasn&apos;t being unset before
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2013-04-07</date>
+   <date>2013-04-06</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 * Make Services_Scribd->timeout variable public for ease of configuration.
