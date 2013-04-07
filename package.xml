@@ -22,7 +22,11 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-Fixed a bug where the &apos;file&apos; POST param wasn&apos;t being unset before the HTTP request was made.  This prevented the docs.upload from working properly.
+* Make Services_Scribd->timeout variable public for ease of configuration.
+* Update list of allowed document formats in Docs endpoints.
+* Added several missing Docs endpoints: uploadThumb, getCategories, browse, featured, search, getStats
+* Added Thumbnail and Collections API endpoints.
+* Minor CS and unit testing improvements.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
