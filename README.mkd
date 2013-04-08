@@ -3,6 +3,13 @@ services_scribd
 
 A simple PHP API client for Scribd.
 
+Installation
+------------
+The easiest way is to install from PEAR:
+<pre>
+sudo pear install Services_Scribd
+</pre>
+
 Basic Usage
 -----------
 
